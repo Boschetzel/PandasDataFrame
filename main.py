@@ -21,16 +21,19 @@ class Main:
     @staticmethod
     def save_csv(file_csv):
         file_output = pd.DataFrame(file_csv)
-        while True:
-            print("Do you want to save changes to a new .csv file? Y/N :")
-            choice = input()
-            match choice:
-                case "Y":
-                    file_output.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\report1.csv")
-                case "N":
-                    break
-                case _:
-                    print("Wrong input")
+        try:
+            while True:
+                print("Do you want to save changes to a new .csv file? Y/N :")
+                choice = input()
+                match choice:
+                    case "Y":
+                        file_output.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\report1.csv")
+                    case "N":
+                        break
+                    case _:
+                        print("Wrong input")
+        except ValueError:
+            print("Please enter a valid input")
 
 
 if __name__ == "__main__":
