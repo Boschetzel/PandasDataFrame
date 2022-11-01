@@ -45,6 +45,7 @@ PandasDataFrame comes with sample dataset that will download on first use.
 - Data editing 
 - Import CSV files 
 - Search 
+- Basic data visualization with bohek
 
 ## More Info
 
