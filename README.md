@@ -11,7 +11,7 @@ PandasDataFrame is a simple Python project for  viewing, plotting and analyzing 
 
 ## Demo
 
-www.
+https://github.com/Boschetzel/main.py.git
 
 ## Installation
 
