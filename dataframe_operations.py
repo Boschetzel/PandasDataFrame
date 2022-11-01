@@ -3,8 +3,6 @@ import pandas as pd
 """A class which has only one scope: open the .csv file and set-up to arguments in order to sort data"""
 
 
-
-
 class DataSorting:
     def __init__(self):
         self.PATH = "D:\\PROGRAMARE\PORTOFOLIO\\PandasDataFrame\\input_data\\Covid Live.csv"
