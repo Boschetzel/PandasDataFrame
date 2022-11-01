@@ -1,11 +1,13 @@
 import pandas as pd
+from bokeh.plotting import figure
+from bokeh.io import show, output_file
 
 """A class which has only one scope: open the .csv file and set-up to arguments in order to sort data"""
 
 
 class DataSorting:
     def __init__(self):
-        self.PATH = "D:\\PROGRAMARE\PORTOFOLIO\\PandasDataFrame\\input_data\\Covid Live.csv"
+        self.PATH = "D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\input_data\\players_fifa23.csv"
         self.df = pd.read_csv(self.PATH)
         self.rank1 = 30
         self.rank2 = 15
@@ -112,6 +114,17 @@ class DataOperations(DataSorting):
                 df_sum = pd.DataFrame(df_col_added)
                 return df_sum
 
+    def visualize_data(self):
+        x_col = input("Enter X column name:")
+        x = self.df[x_col]
+        y_col = input("Enter Y column name:")
+        y = self.df[y_col]
+        p = figure(title="Example title", x_axis_label=x_col, y_axis_label=y_col)
+        p.circle(x, y, line_width=2)
+        output_file("Test.html")
+        show(p)
+
 
 do = DataOperations()
 ds = DataSorting()
+

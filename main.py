@@ -15,6 +15,7 @@ class Main:
         print("4.Add new columns and sort data based on existent columns")
         print("5.Search any value based on column name  ")
         print("6.Sum up columns values and store them into a new column")
+        print("7.Visualize data based on two columns")
         print("0.Exit the program")
 
     @staticmethod
@@ -57,6 +58,8 @@ if __name__ == "__main__":
             case "6":
                 d = do.sum_up_columns()
                 play.save_csv(d)
+            case "7":
+                do.visualize_data()
             case "0":
                 break
             case _:
