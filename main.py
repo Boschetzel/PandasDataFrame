@@ -1,6 +1,10 @@
 import pandas as pd
 
-from dataframe_operations import DataSorting, DataOperations
+from dataframe_operations import DataInput, DataOperations
+from web_api.connect_api import ConnectToApi, WeatherApi
+
+"""This is the main file( first i will finish the project in console to be sure it is working, then i will make a GUI
+"""
 
 
 class Main:
@@ -19,7 +23,7 @@ class Main:
         print("0.Exit the program")
 
     @staticmethod
-    def save_csv(file_csv):
+    def save_to_csv(file_csv):
         file_output = pd.DataFrame(file_csv)
         try:
             while True:
@@ -38,29 +42,33 @@ class Main:
 
 if __name__ == "__main__":
     play = Main()
-    ds = DataSorting()
+    ds = DataInput()
     do = DataOperations()
+    weather_api = WeatherApi()
+    connect = ConnectToApi()
 
     while True:
         play.show_menu()
         menu_choice = input("Please choose an option from the menu :")
         match menu_choice:
+            case "9":
+                connect.start()
             case "1":
                 do.dataframe_info()
             case "2":
                 a = do.filter_data()
-                play.save_csv(a)
+                play.save_to_csv(a)
             case "3":
                 b = do.find_column_values()
             case "4":
-                b = do.add_new_columns_and_sort()
-                play.save_csv(b)
+                b = do.add_new_column_and_sort()
+                play.save_to_csv(b)
             case "5":
                 c = do.find_row_values()
-                play.save_csv(c)
+                play.save_to_csv(c)
             case "6":
                 d = do.sum_up_columns()
-                play.save_csv(d)
+                play.save_to_csv(d)
             case "7":
                 do.visualize_data()
             case "0":

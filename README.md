@@ -7,29 +7,38 @@
 
 ## About
 
-PandasDataFrame is a simple Python project for  viewing, plotting and analyzing Pandas DataFrames.
+PandasDataFrame is a simple Python project for  viewing,
+plotting and analyzing Pandas DataFrames.
+
+Final project will make possible getting data 
+from a web API, csv file or web scrapping.
+
+After the project is functional in console with 
+all the options I will make a GUI for it.
 
 ## Demo
 
-https://github.com/Boschetzel/main.py.git
+![img.png](img.png)
 
 ## Installation
 
 Install the latest release from PyPi:
 
 ```shell
-not available yet,TODO
+not available atm.Will be published after the final version is made.
 ```
-
-Install directly from GitHub for the latest unreleased changes:
 
 
 ## Usage
 
-Create and view a simple DataFrame
+The project main goal is to be able to get data from different sources and refactor it, 
+so it can be used in business decisions. 
 
 ```python
-import pandas as pd
+#import pandas as pd
+#import bokeh
+#import requests
+#import numpy
 
 ```
 
@@ -46,11 +55,15 @@ PandasDataFrame comes with sample dataset that will download on first use.
 - Import CSV files 
 - Search 
 - Basic data visualization with bohek
+- Get data from web API
+
+
+
 
 ## More Info
 
 **Issues, feedback and pull requests are welcome.**
 
-This project is still in version 0.x.y and subject to breaking changes. The latest changes will be on the `develop` branch, and will be occasionally merged to `master` as a release with a tag indicating the version number and published to PyPi.
+This project is still in version 0.1.1 and subject to breaking changes. The latest changes will be on the `develop` branch, and will be occasionally merged to `master` as a release with a tag indicating the version number and published to PyPi.
 
 If you like this project remember to leave a ⭐! 
