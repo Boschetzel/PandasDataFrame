@@ -186,7 +186,7 @@ class DataOperations(DataInput):
     def str_to_int(self):
         df_copy = self.df.copy(True)
         col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        df_copy[col_to_int] = df_copy[col_to_int].astype(float)
+        df_copy[col_to_int] = df_copy[col_to_int].astype(int)
         df_col_int = pd.DataFrame(df_copy)
         return df_col_int
 
@@ -200,7 +200,7 @@ class DataOperations(DataInput):
     def float_to_int(self):
         df_copy = self.df.copy(True)
         col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        df_copy[col_to_int] = df_copy[col_to_int].astype(float)
+        df_copy[col_to_int] = df_copy[col_to_int].astype(int)
         df_col_int = pd.DataFrame(df_copy)
         return df_col_int
 
