@@ -23,7 +23,7 @@ class Main:
         print("5.Add new columns and sort data based on existent columns")
         print("6.Search any value based on column name  ")
         print("7.Sum up columns values and store them into a new column")
-        print("8.Split column data ")
+        print("8.Rename a column ")
         print("********DATAFRAME VISUALIZATION**************************")
         print("9.Visualize data based on two columns")
         print("********EXIT PROGRAM*************************************")
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 d = do.sum_up_columns()
                 play.save_to_csv(d)
             case "8":
-                do.split_column_data()
+                do.rename_column()
             case "9":
                 do.visualize_data()
 

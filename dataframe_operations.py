@@ -8,7 +8,7 @@ from web_api.connect_api import ConnectToApi, WeatherApi
 
 class DataInput:
     def __init__(self):
-        self.PATH = "D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\input_data\\raw_data.csv"
+        self.PATH = "D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\input_data\\players_fifa23.csv"
         self.df = pd.read_csv(self.PATH)
         self.rank1 = 30
         self.rank2 = 15
@@ -62,11 +62,10 @@ class DataOperations(DataInput):
             print("Invalid Input, please try again! ")
 
     def rename_column(self):
-        df_copy = self.df.copy(True)
         col_old_name = str(input("Old column name:"))
         col_new_name = str(input("New column name:"))
         dict_col = {col_old_name: col_new_name}
-        temp = df_copy.rename(columns=dict_col)
+        temp = self.df.rename(columns=dict_col)
         df_renamed = pd.DataFrame(temp)
         return df_renamed
 
@@ -143,65 +142,58 @@ class DataOperations(DataInput):
         # Split columns where values from it are a list
 
     def split_column_data(self):
-        df_copy = self.df.copy(True)
         col_name = str(input("Enter column name to be split:"))
         separator = str(input("Separated by ? : "))
-        df_copy[col_name].str.split(separator, expand=True)
-        df_split = pd.DataFrame(df_copy)
+        temp=self.df[col_name].str.split(separator, expand=True)
+        df_split = pd.DataFrame(temp)
         print(type(df_split))
         print(df_split)
         return df_split
 
     # Select a range of columns from DF( e.g. from column 0 to column 10)
     def select_range_of_columns(self):
-        df_copy = self.df.copy(True)
         name_first_col = str(input("Enter first column name:"))
         name_last_col = str(input("Enter last column name:"))
-        temp = df_copy.loc[:, name_first_col:name_last_col]
+        temp = self.df.loc[:, name_first_col:name_last_col]
         df_selected = pd.DataFrame(temp)
         return df_selected
 
     def replace_all_values_in_row(self):
-        df_copy = self.df.copy(True)
         num_row = int(input("Which row you want all the values to be  replaced? : "))
         new_value = input("Enter the new value :")
-        df_copy.loc[num_row] = new_value
-        df_replaced_row = pd.DataFrame(df_copy)
+        temp=self.df.loc[num_row] = new_value
+        df_replaced_row = pd.DataFrame(temp)
         return df_replaced_row
 
     def transpose_df(self):
-        df_copy = self.df.copy(True)
-        temp = df_copy.transpose()
+        temp = self.df.transpose()
         df_transposed = pd.DataFrame(temp)
         return df_transposed
 
     # CONVERT THE VALUES FROM A COLUMN
     def str_to_float(self):
-        df_copy = self.df.copy(True)
         col_to_float = str(input("Enter the column name you want the values to be converted to a float"))
-        df_copy[col_to_float] = df_copy[col_to_float].astype(float)
-        df_col_float = pd.DataFrame(df_copy)
+        temp=self.df[col_to_float] = self.df[col_to_float].astype(float)
+        df_col_float = pd.DataFrame(temp)
         return df_col_float
 
     def str_to_int(self):
-        df_copy = self.df.copy(True)
+
         col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        df_copy[col_to_int] = df_copy[col_to_int].astype(int)
-        df_col_int = pd.DataFrame(df_copy)
+        temp=self.df[col_to_int] = self.df[col_to_int].astype(int)
+        df_col_int = pd.DataFrame(temp)
         return df_col_int
 
     def int_to_float(self):
-        df_copy = self.df.copy(True)
         col_to_float = str(input("Enter the column name you want the values to be converted to a float"))
-        df_copy[col_to_float] = df_copy[col_to_float].astype(float)
-        df_col_float = pd.DataFrame(df_copy)
+        temp=self.df[col_to_float] = self.df[col_to_float].astype(float)
+        df_col_float = pd.DataFrame(temp)
         return df_col_float
 
     def float_to_int(self):
-        df_copy = self.df.copy(True)
         col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        df_copy[col_to_int] = df_copy[col_to_int].astype(int)
-        df_col_int = pd.DataFrame(df_copy)
+        temp=self.df[col_to_int] = self.df[col_to_int].astype(int)
+        df_col_int = pd.DataFrame(temp)
         return df_col_int
 
         # GRAPHICAL VISUALIZATION OF THE DATAFRAME
