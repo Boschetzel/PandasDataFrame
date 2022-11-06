@@ -8,7 +8,7 @@ from web_api.connect_api import ConnectToApi, WeatherApi
 
 class DataInput:
     def __init__(self):
-        self.PATH = "D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\input_data\\players_fifa23.csv"
+        self.PATH = "D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\input_data\\raw_data.csv"
         self.df = pd.read_csv(self.PATH)
         self.rank1 = 30
         self.rank2 = 15
@@ -67,6 +67,7 @@ class DataOperations(DataInput):
         dict_col = {col_old_name: col_new_name}
         temp = self.df.rename(columns=dict_col)
         df_renamed = pd.DataFrame(temp)
+        print(df_renamed)
         return df_renamed
 
     # ANALYZE AND REFACTOR  THE  DATAFRAME

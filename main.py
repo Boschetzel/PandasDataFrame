@@ -68,16 +68,17 @@ if __name__ == "__main__":
             case "4":
                 b = do.find_column_values()
             case "5":
-                b = do.add_new_column_and_sort()
-                play.save_to_csv(b)
-            case "6":
-                c = do.find_row_values()
+                c = do.add_new_column_and_sort()
                 play.save_to_csv(c)
-            case "7":
-                d = do.sum_up_columns()
+            case "6":
+                d = do.find_row_values()
                 play.save_to_csv(d)
+            case "7":
+                e = do.sum_up_columns()
+                play.save_to_csv(e)
             case "8":
-                do.rename_column()
+                f = do.rename_column()
+                play.save_to_csv(f)
             case "9":
                 do.visualize_data()
 
