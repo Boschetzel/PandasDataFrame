@@ -2,13 +2,17 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.io import show, output_file
 from web_api.connect_api import ConnectToApi, WeatherApi
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 
 """A class which has only one scope: open the .csv file and set-up to parameters in order to sort data"""
 
 
 class DataInput:
     def __init__(self):
-        self.PATH = "D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\input_data\\raw_data.csv"
+        Tk().withdraw()
+        filename = askopenfilename()
+        self.PATH = filename
         self.df = pd.read_csv(self.PATH)
         self.rank1 = 30
         self.rank2 = 15
@@ -145,7 +149,7 @@ class DataOperations(DataInput):
     def split_column_data(self):
         col_name = str(input("Enter column name to be split:"))
         separator = str(input("Separated by ? : "))
-        temp=self.df[col_name].str.split(separator, expand=True)
+        temp = self.df[col_name].str.split(separator, expand=True)
         df_split = pd.DataFrame(temp)
         print(type(df_split))
         print(df_split)
@@ -162,7 +166,7 @@ class DataOperations(DataInput):
     def replace_all_values_in_row(self):
         num_row = int(input("Which row you want all the values to be  replaced? : "))
         new_value = input("Enter the new value :")
-        temp=self.df.loc[num_row] = new_value
+        temp = self.df.loc[num_row] = new_value
         df_replaced_row = pd.DataFrame(temp)
         return df_replaced_row
 
@@ -174,26 +178,26 @@ class DataOperations(DataInput):
     # CONVERT THE VALUES FROM A COLUMN
     def str_to_float(self):
         col_to_float = str(input("Enter the column name you want the values to be converted to a float"))
-        temp=self.df[col_to_float] = self.df[col_to_float].astype(float)
+        temp = self.df[col_to_float] = self.df[col_to_float].astype(float)
         df_col_float = pd.DataFrame(temp)
         return df_col_float
 
     def str_to_int(self):
 
         col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        temp=self.df[col_to_int] = self.df[col_to_int].astype(int)
+        temp = self.df[col_to_int] = self.df[col_to_int].astype(int)
         df_col_int = pd.DataFrame(temp)
         return df_col_int
 
     def int_to_float(self):
         col_to_float = str(input("Enter the column name you want the values to be converted to a float"))
-        temp=self.df[col_to_float] = self.df[col_to_float].astype(float)
+        temp = self.df[col_to_float] = self.df[col_to_float].astype(float)
         df_col_float = pd.DataFrame(temp)
         return df_col_float
 
     def float_to_int(self):
         col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        temp=self.df[col_to_int] = self.df[col_to_int].astype(int)
+        temp = self.df[col_to_int] = self.df[col_to_int].astype(int)
         df_col_int = pd.DataFrame(temp)
         return df_col_int
 
