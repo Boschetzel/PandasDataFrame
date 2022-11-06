@@ -210,7 +210,7 @@ class DataOperations(DataInput):
             y_col = input("Enter Y column name:")
             y = self.df[y_col]
             p = figure(title="Temperature for 2022-11-03", x_axis_label=x_col, y_axis_label=y_col)
-            p.line(x, y, line_width=2)
+            p.scatter(x, y, line_width=2)
             output_file("Test.html")
             show(p)
         except ValueError:
