@@ -13,14 +13,20 @@ class Main:
 
     @staticmethod
     def show_menu():
+        print("=========================================================")
+        print("********CONNECTING TO API********************************")
         print("1.Connect to API and get DataFrame")
+        print("********DATAFRAME OPERATIONS******************************")
         print("2.DataFrame info")
         print("3.Filter DataFrame based on min an max value of a column")
         print("4.Filter DataFrame based on a single colum values")
         print("5.Add new columns and sort data based on existent columns")
         print("6.Search any value based on column name  ")
         print("7.Sum up columns values and store them into a new column")
-        print("8.Visualize data based on two columns")
+        print("8.Split column data ")
+        print("********DATAFRAME VISUALIZATION**************************")
+        print("9.Visualize data based on two columns")
+        print("********EXIT PROGRAM*************************************")
         print("0.Exit the program")
 
     @staticmethod
@@ -71,7 +77,10 @@ if __name__ == "__main__":
                 d = do.sum_up_columns()
                 play.save_to_csv(d)
             case "8":
+                do.split_column_data()
+            case "9":
                 do.visualize_data()
+
             case "0":
                 break
             case _:

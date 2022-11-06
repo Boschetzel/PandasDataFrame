@@ -70,5 +70,7 @@ class WeatherApi(ConnectToApi):
             print("Error, could not connect to API")
 
 
+
+
 connect = ConnectToApi()
 weather = WeatherApi()
