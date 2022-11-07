@@ -39,6 +39,7 @@ class Main:
                 match choice:
                     case "Y":
                         file_output.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\report1.csv")
+                        break
                     case "N":
                         break
                     case _:

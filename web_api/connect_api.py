@@ -1,6 +1,8 @@
 import pandas as pd
 import requests
 
+"""A class which saves the data from the API in a CSV format based on the info gathered from the child class"""
+
 
 class ConnectToApi:
     def __init__(self):
@@ -24,15 +26,20 @@ class ConnectToApi:
         return url
 
 
+"""A class which gets weather info from an API and returns a DataFrame"""
+
+
 class WeatherApi(ConnectToApi):
     def __init__(self):
         super(WeatherApi, self).__init__()
 
+    # Gets the user input( city for which weather info is needed
     @staticmethod
     def get_city_name():
         city_name = str(input("Enter city name: "))
         return city_name
 
+    # Connects to the API
     @staticmethod
     def connect():
         url = connect.connection_info()
@@ -45,6 +52,7 @@ class WeatherApi(ConnectToApi):
         else:
             print("Error, could not connect to API")
 
+    # Gets the latitude and longitude from the API  for the city that user entered
     @staticmethod
     def get_json_data():
         data_coord = weather.connect().json()
@@ -53,6 +61,7 @@ class WeatherApi(ConnectToApi):
         my_lst = [lat, long]
         return my_lst
 
+    # Uses the lat/long from first API call to get the weather info for the user specified city and returns a dataframe
     @staticmethod
     def get_weather_info():
         my_lst = weather.get_json_data()

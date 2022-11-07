@@ -1,7 +1,6 @@
 import pandas as pd
 from bokeh.plotting import figure
 from bokeh.io import show, output_file
-from web_api.connect_api import ConnectToApi, WeatherApi
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
@@ -66,15 +65,26 @@ class DataOperations(DataInput):
             print("Invalid Input, please try again! ")
 
     def rename_column(self):
-        col_old_name = str(input("Old column name:"))
-        col_new_name = str(input("New column name:"))
-        dict_col = {col_old_name: col_new_name}
-        temp = self.df.rename(columns=dict_col)
-        df_renamed = pd.DataFrame(temp)
-        print(df_renamed)
-        return df_renamed
+        dict_col = {}
+        while True:
+            col_old_name = str(input("Old column name:"))
+            col_new_name = str(input("New column name:"))
+            dict_col[col_old_name] = col_new_name
+            choice = input("Do you want to continue? (Y/N) : ")
+            match choice:
+                case "Y":
+                    dict_col[col_old_name] = col_new_name
 
-    # ANALYZE AND REFACTOR  THE  DATAFRAME
+                case "N":
+                    break
+                case _:
+                    print("Wrong input!")
+
+        temp = self.df.rename(columns=dict_col)
+        new_df = pd.DataFrame(temp)
+        return new_df
+
+        # ANALYZE AND REFACTOR  THE  DATAFRAME
 
     # Adds new column with data from other columns based on a user choice criteria (user input)
     def add_new_column_and_sort(self):
@@ -219,5 +229,3 @@ class DataOperations(DataInput):
 
 do = DataOperations()
 ds = DataInput()
-weather_api = WeatherApi()
-connect = ConnectToApi()
