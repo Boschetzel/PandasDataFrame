@@ -154,7 +154,7 @@ class DataOperations(DataInput):
         except ValueError:
             print("Invalid input, please try again!")
 
-        # Split columns where values from it are a list
+    # Split columns where values from it are a list
 
     def split_column_data(self):
         col_name = str(input("Enter column name to be split:"))
@@ -199,17 +199,7 @@ class DataOperations(DataInput):
         df_col_int = pd.DataFrame(temp)
         return df_col_int
 
-    def int_to_float(self):
-        col_to_float = str(input("Enter the column name you want the values to be converted to a float"))
-        temp = self.df[col_to_float] = self.df[col_to_float].astype(float)
-        df_col_float = pd.DataFrame(temp)
-        return df_col_float
 
-    def float_to_int(self):
-        col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        temp = self.df[col_to_int] = self.df[col_to_int].astype(int)
-        df_col_int = pd.DataFrame(temp)
-        return df_col_int
 
         # GRAPHICAL VISUALIZATION OF THE DATAFRAME
 
@@ -227,5 +217,17 @@ class DataOperations(DataInput):
             print("Invalid input, please try again!")
 
 
+class CleanData(DataOperations):
+    def __init__(self):
+        super(CleanData, self).__init__()
+
+    pass
+
+    @staticmethod
+    def clean_weather_data():
+        do.split_column_data()
+
+
 do = DataOperations()
 ds = DataInput()
+cl = CleanData()
