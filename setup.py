@@ -8,5 +8,7 @@ install_requires = [
     "pandas",
     "numpy",
     "bohek",
-    "requests"
+    "requests",
+    "os",
+    "tkinter"
 ]

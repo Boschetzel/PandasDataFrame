@@ -1,9 +1,11 @@
 import pandas as pd
+import os
 
 from dataframe_operations import DataInput, DataOperations
 from web_api.connect_api import ConnectToApi, WeatherApi
 
-"""This is the main file( first i will finish the project in console to be sure it is working, then i will make a GUI
+"""This is the main file( first i will finish the 
+project in console to be sure it is working, then i will make a GUI
 """
 
 
@@ -32,13 +34,16 @@ class Main:
     @staticmethod
     def save_to_csv(file_csv):
         file_output = pd.DataFrame(file_csv)
+        filename = input("Name of file:")
+        output_dir = "output_data"
+        csv_file = os.getcwd() + "\\" + output_dir + "\\" + filename + ".csv"
         try:
             while True:
                 print("Do you want to save changes to a new .csv file? Y/N :")
                 choice = input()
                 match choice:
                     case "Y":
-                        file_output.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\report1.csv")
+                        file_output.to_csv(csv_file)
                         break
                     case "N":
                         break

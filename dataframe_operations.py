@@ -45,7 +45,7 @@ class DataOperations(DataInput):
             print(df_col_save)
             return df_col_save
         except ValueError:
-            print("Please enter a valid input")
+            print("Invalid input, please try again!")
 
     # Finds and shows a specific value from a column (user input)
     def find_row_values(self):
@@ -65,26 +65,38 @@ class DataOperations(DataInput):
             print("Invalid Input, please try again! ")
 
     def rename_column(self):
-        dict_col = {}
-        while True:
-            col_old_name = str(input("Old column name:"))
-            col_new_name = str(input("New column name:"))
-            dict_col[col_old_name] = col_new_name
-            choice = input("Do you want to continue? (Y/N) : ")
-            match choice:
-                case "Y":
-                    dict_col[col_old_name] = col_new_name
+        try:
+            dict_col = {}
+            while True:
+                col_old_name = str(input("Old column name:"))
+                col_new_name = str(input("New column name:"))
+                dict_col[col_old_name] = col_new_name
+                choice = input("Do you want to continue? (Y/N) : ")
+                match choice:
+                    case "Y":
+                        dict_col[col_old_name] = col_new_name
 
-                case "N":
-                    break
-                case _:
-                    print("Wrong input!")
+                    case "N":
+                        break
+                    case _:
+                        print("Invalid input, please try again!")
 
-        temp = self.df.rename(columns=dict_col)
-        new_df = pd.DataFrame(temp)
-        return new_df
+                temp = self.df.rename(columns=dict_col)
+                new_df = pd.DataFrame(temp)
+                return new_df
+        except ValueError:
+            print("Invalid input, please try again!")
 
-        # ANALYZE AND REFACTOR  THE  DATAFRAME
+    def delete_column(self):
+        try:
+            column_to_delete = input("Enter the column name you want to delete :")
+            temp = self.df.drop(column_to_delete, axis=1, inplace=True)
+            new_df = pd.DataFrame(temp)
+            return new_df
+        except ValueError:
+            print("Invalid input, please try again!")
+
+    # ANALYZE AND REFACTOR  THE  DATAFRAME
 
     # Adds new column with data from other columns based on a user choice criteria (user input)
     def add_new_column_and_sort(self):
@@ -157,28 +169,37 @@ class DataOperations(DataInput):
     # Split columns where values from it are a list
 
     def split_column_data(self):
-        col_name = str(input("Enter column name to be split:"))
-        separator = str(input("Separated by ? : "))
-        temp = self.df[col_name].str.split(separator, expand=True)
-        df_split = pd.DataFrame(temp)
-        print(type(df_split))
-        print(df_split)
-        return df_split
+        try:
+            col_name = str(input("Enter column name to be split:"))
+            separator = str(input("Separated by ? : "))
+            temp = self.df[col_name].str.split(separator, expand=True)
+            df_split = pd.DataFrame(temp)
+            print(type(df_split))
+            print(df_split)
+            return df_split
+        except ValueError:
+            print("Invalid input, please try again!")
 
     # Select a range of columns from DF( e.g. from column 0 to column 10)
     def select_range_of_columns(self):
-        name_first_col = str(input("Enter first column name:"))
-        name_last_col = str(input("Enter last column name:"))
-        temp = self.df.loc[:, name_first_col:name_last_col]
-        df_selected = pd.DataFrame(temp)
-        return df_selected
+        try:
+            name_first_col = str(input("Enter first column name:"))
+            name_last_col = str(input("Enter last column name:"))
+            temp = self.df.loc[:, name_first_col:name_last_col]
+            df_selected = pd.DataFrame(temp)
+            return df_selected
+        except ValueError:
+            print("Invalid input, please try again!")
 
     def replace_all_values_in_row(self):
-        num_row = int(input("Which row you want all the values to be  replaced? : "))
-        new_value = input("Enter the new value :")
-        temp = self.df.loc[num_row] = new_value
-        df_replaced_row = pd.DataFrame(temp)
-        return df_replaced_row
+        try:
+            num_row = int(input("Which row you want all the values to be  replaced? : "))
+            new_value = input("Enter the new value :")
+            temp = self.df.loc[num_row] = new_value
+            df_replaced_row = pd.DataFrame(temp)
+            return df_replaced_row
+        except ValueError:
+            print("Invalid input, please try again!")
 
     def transpose_df(self):
         temp = self.df.transpose()
@@ -187,21 +208,23 @@ class DataOperations(DataInput):
 
     # CONVERT THE VALUES FROM A COLUMN
     def str_to_float(self):
-        col_to_float = str(input("Enter the column name you want the values to be converted to a float"))
-        temp = self.df[col_to_float] = self.df[col_to_float].astype(float)
-        df_col_float = pd.DataFrame(temp)
-        return df_col_float
+        try:
+            col_to_float = str(input("Enter the column name you want the values to be converted to a float"))
+            temp = self.df[col_to_float] = self.df[col_to_float].astype(float)
+            df_col_float = pd.DataFrame(temp)
+            return df_col_float
+        except ValueError:
+            print("Invalid input, please try again!")
 
     def str_to_int(self):
-
-        col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
-        temp = self.df[col_to_int] = self.df[col_to_int].astype(int)
-        df_col_int = pd.DataFrame(temp)
-        return df_col_int
-
-
-
-        # GRAPHICAL VISUALIZATION OF THE DATAFRAME
+        try:
+            col_to_int = str(input("Enter the column name you want the values to be converted to an int"))
+            temp = self.df[col_to_int] = self.df[col_to_int].astype(int)
+            df_col_int = pd.DataFrame(temp)
+            return df_col_int
+        except ValueError:
+            print("Invalid input, please try again!")
+    # GRAPHICAL VISUALIZATION OF THE DATAFRAME
 
     def visualize_data(self):
         try:
@@ -209,7 +232,7 @@ class DataOperations(DataInput):
             x = self.df[x_col]
             y_col = input("Enter Y column name:")
             y = self.df[y_col]
-            p = figure(title="Temperature for 2022-11-03", x_axis_label=x_col, y_axis_label=y_col)
+            p = figure(title="Title of the chart", x_axis_label=x_col, y_axis_label=y_col)
             p.scatter(x, y, line_width=2)
             output_file("Test.html")
             show(p)
@@ -217,17 +240,5 @@ class DataOperations(DataInput):
             print("Invalid input, please try again!")
 
 
-class CleanData(DataOperations):
-    def __init__(self):
-        super(CleanData, self).__init__()
-
-    pass
-
-    @staticmethod
-    def clean_weather_data():
-        do.split_column_data()
-
-
 do = DataOperations()
 ds = DataInput()
-cl = CleanData()
