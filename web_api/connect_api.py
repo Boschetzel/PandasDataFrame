@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import os
 
 """A class which saves the data from the API in a CSV format based on the info gathered from the child class"""
 
@@ -17,7 +18,10 @@ class ConnectToApi:
     @staticmethod
     def get_df_make_csv():
         df = weather.get_weather_info()
-        df.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\input_data\\raw_data.csv")
+        filename = input("Name of file:")
+        output_dir = "input_data"
+        csv_file = os.getcwd() + "\\" + output_dir + "\\" + filename + ".csv"
+        df.to_csv(csv_file)
         print("File was saved as CSV format")
 
     @staticmethod
