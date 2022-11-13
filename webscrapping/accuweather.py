@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
+import os
 
 
 class WeatherSearch:
@@ -44,9 +45,15 @@ class WeatherSearch:
                                 "Low.Temp": low_temp}
                 self.my_weather_list.append(results_dict)
                 df = pd.DataFrame(self.my_weather_list)
-                df.to_csv("Weather info.csv")
+                df.to_csv("test.csv")
 
         finally:
+            filename = input("Name of file to save csv:")
+            output_dir = "output_data"
+            csv_file = os.getcwd() + "\\" + output_dir + "\\" + filename + ".csv"
+            df.to_csv(csv_file)
+            self.driver.quit()
             self.driver.quit()
 
 
+ws = WeatherSearch()
