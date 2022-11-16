@@ -5,6 +5,10 @@ from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import os
 
+# Works only for Romanian cities ( this is what I used to scrap the website)
+"""A class which allows user to search for weather info for a specific city 
+and save the data to a csv file for further use"""
+
 
 class WeatherSearch:
     def __init__(self):
@@ -13,6 +17,7 @@ class WeatherSearch:
         self.driver.maximize_window()
         self.driver.get(f"https://www.accuweather.com/ro/search-locations?query={self.city}")
         self.my_weather_list = []
+
         try:
             WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, "//p[contains(text(),'Consent')]")))
@@ -48,6 +53,7 @@ class WeatherSearch:
                 df.to_csv("test.csv")
 
         finally:
+            df = pd.DataFrame(self.my_weather_list)
             filename = input("Name of file to save csv:")
             output_dir = "output_data"
             csv_file = os.getcwd() + "\\" + output_dir + "\\" + filename + ".csv"
