@@ -11,5 +11,6 @@ install_requires = [
     "requests",
     "os",
     "tkinter",
-    "selenium"
+    "selenium",
+    "sqlite3"
 ]
