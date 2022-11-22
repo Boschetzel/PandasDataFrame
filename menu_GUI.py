@@ -1,6 +1,10 @@
 import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GUI.account_created import Ui_Form
+from GUI.login_window import Ui_Form
+from GUI.login_succes import Ui_Log_in_success
+from GUI.login_failed import Ui_log_in_failed
+from GUI.main_window import Ui_MainWindow
 
 
 class ConnectDB:
@@ -39,6 +43,10 @@ class UiRegisterWindow(ConnectDB):
         self.loginBtn1 = QtWidgets.QPushButton(RegisterWindow)
         self.Form = QtWidgets.QWidget()
         self.ui = Ui_Form()
+        self.Log_in_success = QtWidgets.QWidget()
+        self.log_in_failed = QtWidgets.QWidget()
+        self.MainWindow = QtWidgets.QMainWindow()
+        self.Dialog = QtWidgets.QDialog()
 
     def setup_ui(self, RegisterWindow):
         RegisterWindow.setObjectName("RegisterWindow")
@@ -115,6 +123,8 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(12)
         self.loginBtn1.setFont(font)
         self.loginBtn1.setObjectName("loginBtn1")
+        self.loginBtn1.clicked.connect(self.show_login_window)
+
 
         self.retranslate_ui(RegisterWindow)
         QtCore.QMetaObject.connectSlotsByName(RegisterWindow)
@@ -127,7 +137,6 @@ class UiRegisterWindow(ConnectDB):
 
     def register_user(self):
         temp_list_info = []
-
         try:
 
             username = self.ui_username.text()
@@ -147,6 +156,7 @@ class UiRegisterWindow(ConnectDB):
                 temp_list_info.append(username)
                 temp_list_info.append(password)
                 temp_list_info.append(email)
+                self.show_main_window()
 
             try:
                 add_values = f"INSERT INTO {self.filename}({self.column_user},{self.column_pass}," \
@@ -160,6 +170,42 @@ class UiRegisterWindow(ConnectDB):
         except ValueError:
             print("Invalid input!")
 
+    def show_login_window(self):
+        self.Form = QtWidgets.QWidget()
+        self.ui = Ui_Form()
+        self.ui.setupUi(self.Form)
+        self.Form.show()
+
+    def login_user(self):
+        username = self.ui_username.text()
+        password = self.ui_password.text()
+        res = self.cursor.execute(f"SELECT User,Password FROM {self.filename}  ")
+        users_list = res.fetchall()
+        temp_list = [item for item in map(list, users_list)]
+        final_list = sum(temp_list, [])
+        if username and password in final_list:
+            self.login_success()
+        else:
+            self.login_failed()
+
+    def login_success(self):
+        self.Log_in_success = QtWidgets.QWidget()
+        self.ui = Ui_Log_in_success()
+        self.ui.setupUi(self.Log_in_success)
+        self.Log_in_success.show()
+
+    def login_failed(self):
+        self.log_in_failed = QtWidgets.QWidget()
+        self.ui = Ui_log_in_failed()
+        self.ui.setupUi(self.log_in_failed)
+        self.log_in_failed.show()
+
+    def show_main_window(self):
+        self.MainWindow = QtWidgets.QMainWindow()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self.MainWindow)
+        self.MainWindow.show()
+
     def retranslate_ui(self, RegisterWindow):
         _translate = QtCore.QCoreApplication.translate
         RegisterWindow.setWindowTitle(_translate("RegisterWindow", "Dialog"))
@@ -170,6 +216,7 @@ class UiRegisterWindow(ConnectDB):
         self.registerBtn.setText(_translate("RegisterWindow", "Register"))
         self.label_2.setText(_translate("RegisterWindow", "Already have an account?"))
         self.loginBtn1.setText(_translate("RegisterWindow", "Log In"))
+
 
 
 if __name__ == "__main__":
