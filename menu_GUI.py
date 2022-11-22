@@ -7,6 +7,7 @@ from GUI.login_failed import Ui_log_in_failed
 from GUI.main_window import Ui_MainWindow
 
 
+
 class ConnectDB:
     def __init__(self):
         self.db = sqlite3.connect("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\test.sqlite")
@@ -198,6 +199,7 @@ class UiRegisterWindow(ConnectDB):
         self.ui = Ui_Log_in_success()
         self.ui.setupUi(self.Log_in_success)
         self.Log_in_success.show()
+        self.Log_in_success.hide()
 
     def login_failed(self):
         self.log_in_failed = QtWidgets.QWidget()
