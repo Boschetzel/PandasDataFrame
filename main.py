@@ -53,8 +53,7 @@ class Main:
             print("Please enter a valid input")
 
 
-if __name__ == "__main__":
-    play = Main()
+
     ds = DataInput()
     do = DataOperations()
     weather_api = WeatherApi()

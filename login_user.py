@@ -85,4 +85,6 @@ class RegisterAndLogin:
                 print("Wrong username of password")
                 username = str(input("Enter your Username:"))
                 hashed = str(input("Enter your Password:"))
-
+if __name__ == "__main__":
+    rl = RegisterAndLogin()
+    rl.create_table()

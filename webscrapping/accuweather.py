@@ -56,10 +56,10 @@ class WeatherSearch:
             df = pd.DataFrame(self.my_weather_list)
             filename = input("Name of file to save csv:")
             output_dir = "output_data"
-            csv_file = os.getcwd() + "\\" + output_dir + "\\" + filename + ".csv"
+            csv_file = os.getcwd() + "\\" + output_dir + "\\"+ filename + ".csv"
             df.to_csv(csv_file)
             self.driver.quit()
-            self.driver.quit()
+
 
 
 ws = WeatherSearch()

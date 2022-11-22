@@ -1,5 +1,5 @@
 name = "pandas-dataframe"
-version = "0.1.2"
+version = "0.2.0"
 description = "A simple project to view and perform operations on Pandas DataFrames."
 author = "eRandom"
 author_email = "mbogdan.fometescu@gmail.com"
@@ -12,5 +12,6 @@ install_requires = [
     "os",
     "tkinter",
     "selenium",
-    "sqlite3"
+    "sqlite3",
+    "pyqt5"
 ]
