@@ -70,7 +70,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
+    ui2 = Ui_Form()
+    ui2.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
