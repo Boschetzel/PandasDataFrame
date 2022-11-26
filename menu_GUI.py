@@ -5,7 +5,8 @@ from GUI.login_window import Ui_Form
 from GUI.login_succes import Ui_Log_in_success
 from GUI.login_failed import Ui_log_in_failed
 from GUI.main_window import Ui_MainWindow
-
+from weather_selenium import WeatherSearch
+from df_model import PandasModel
 
 
 class ConnectDB:
@@ -49,6 +50,7 @@ class UiRegisterWindow(ConnectDB):
         self.log_in_failed = QtWidgets.QWidget()
         self.MainWindow = QtWidgets.QMainWindow()
         self.Dialog = QtWidgets.QDialog()
+        self.view = QtWidgets.QTableView()
 
     def setup_ui(self, RegisterWindow):
         RegisterWindow.setObjectName("RegisterWindow")
@@ -110,7 +112,7 @@ class UiRegisterWindow(ConnectDB):
         self.registerBtn.setFont(font)
         self.registerBtn.setObjectName("registerBtn")
         self.registerBtn.clicked.connect(self.register_user)
-        self.registerBtn.clicked.connect(self.account_created_msg)
+        self.registerBtn.clicked.connect(self.show_account_created_window)
 
         self.label_2 = QtWidgets.QLabel(RegisterWindow)
         self.label_2.setGeometry(QtCore.QRect(130, 430, 241, 41))
@@ -129,12 +131,6 @@ class UiRegisterWindow(ConnectDB):
 
         self.retranslate_ui(RegisterWindow)
         QtCore.QMetaObject.connectSlotsByName(RegisterWindow)
-
-    def account_created_msg(self):
-        self.Form = QtWidgets.QWidget()
-        self.ui = Ui_Form_Acc()
-        self.ui.setupUi(self.Form)
-        self.Form.show()
 
     def register_user(self):
         temp_list_info = []
@@ -157,6 +153,7 @@ class UiRegisterWindow(ConnectDB):
                 temp_list_info.append(username)
                 temp_list_info.append(password)
                 temp_list_info.append(email)
+                self.show_account_created_window()
                 self.show_main_window()
 
             try:
@@ -171,13 +168,6 @@ class UiRegisterWindow(ConnectDB):
         except ValueError:
             print("Invalid input!")
 
-    def show_login_window(self):
-        self.Form = QtWidgets.QWidget()
-        self.ui2 = Ui_Form()
-        self.ui2.setupUi(self.Form)
-        self.Form.show()
-        self.ui2.loginBtn2.clicked.connect(self.login_user)
-
     def login_user(self):
         username = self.ui2.ui_username.text()
         password = self.ui2.ui_password.text()
@@ -187,31 +177,53 @@ class UiRegisterWindow(ConnectDB):
         final_list = sum(temp_list, [])
         while True:
             if username and password in final_list:
-                self.login_success()
+                self.show_login_success_window()
                 self.show_main_window()
                 break
             else:
-                self.login_failed()
+                self.show_login_failed_window()
                 break
 
-    def login_success(self):
+    def show_login_success_window(self):
         self.Log_in_success = QtWidgets.QWidget()
         self.ui = Ui_Log_in_success()
         self.ui.setupUi(self.Log_in_success)
         self.Log_in_success.show()
-        self.Log_in_success.hide()
 
-    def login_failed(self):
+    def show_login_failed_window(self):
         self.log_in_failed = QtWidgets.QWidget()
         self.ui = Ui_log_in_failed()
         self.ui.setupUi(self.log_in_failed)
         self.log_in_failed.show()
+
+    def show_login_window(self):
+        self.Form = QtWidgets.QWidget()
+        self.ui2 = Ui_Form()
+        self.ui2.setupUi(self.Form)
+        self.Form.show()
+        self.ui2.loginBtn2.clicked.connect(self.login_user)
+
+    def show_account_created_window(self):
+        self.Form = QtWidgets.QWidget()
+        self.ui = Ui_Form_Acc()
+        self.ui.setupUi(self.Form)
+        self.Form.show()
 
     def show_main_window(self):
         self.MainWindow = QtWidgets.QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.MainWindow)
         self.MainWindow.show()
+        ws = WeatherSearch()
+        xx = ws.get_data()
+        self.ui.actionWEB_SELENIUM.triggered.connect(lambda: self.panda_model(xx))
+
+    def panda_model(self, df):
+        model = PandasModel(df)
+        self.view = QtWidgets.QTableView()
+        self.view.setModel(model)
+        self.view.resize(800, 600)
+        self.view.show()
 
     def retranslate_ui(self, RegisterWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -235,4 +247,3 @@ if __name__ == "__main__":
     ui.setup_ui(RegisterWindow)
     RegisterWindow.show()
     sys.exit(app.exec_())
-
