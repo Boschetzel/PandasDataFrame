@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_df_operations_window(object):
+class Ui_df_operations_window_rows:
     def setupUi(self, df_operations_window):
         df_operations_window.setObjectName("df_operations_window")
         df_operations_window.resize(421, 293)
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     df_operations_window = QtWidgets.QDialog()
-    ui = Ui_df_operations_window()
+    ui = Ui_df_operations_window_rows()
     ui.setupUi(df_operations_window)
     df_operations_window.show()
     sys.exit(app.exec_())

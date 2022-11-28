@@ -13,12 +13,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_df_operations_window:
-    def __init__(self, df_operations_window1=None):
-        self.show_results_btn = QtWidgets.QPushButton(df_operations_window1)
-        self.ui_column_name = QtWidgets.QLineEdit(df_operations_window1)
-        self.label = QtWidgets.QLabel(df_operations_window1)
-        self.show_results_btn = QtWidgets.QPushButton(df_operations_window1)
-
     def setupUi(self, df_operations_window):
         df_operations_window.setObjectName("df_operations_window")
         df_operations_window.resize(421, 209)
@@ -40,9 +34,6 @@ class Ui_df_operations_window:
         QtCore.QMetaObject.connectSlotsByName(df_operations_window)
 
 
-    def get_col_name(self):
-        col_name=self.ui_column_name.text()
-        return col_name
 
 
     def retranslateUi(self, df_operations_window):

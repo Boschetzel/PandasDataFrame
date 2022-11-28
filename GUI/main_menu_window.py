@@ -13,11 +13,13 @@ from PyQt5.QtWidgets import QFileDialog
 import pandas as pd
 
 from GUI.show_column_data import Ui_df_operations_window
+from GUI.show_row_data import Ui_df_operations_window_rows
 from df_model import PandasModel
 
 
 class Ui_MainWindow:
     def __init__(self):
+        self.df = None
         self.ui = Ui_df_operations_window()
         self.df_operations_window = None
         self.actionBokeh = None
@@ -181,6 +183,7 @@ class Ui_MainWindow:
         csv_filename = self.get_csv_filename()
         reader = pd.read_csv(csv_filename)
         df = pd.DataFrame(reader)
+        self.df = df
         return df
 
     def pandas_model(self):
@@ -196,10 +199,19 @@ class Ui_MainWindow:
         self.ui = Ui_df_operations_window()
         self.ui.setupUi(self.df_operations_window)
         self.df_operations_window.show()
-        self.ui.show_results_btn.clicked.connect(self.xxx)
+        self.ui.show_results_btn.clicked.connect(self.show_column_data_values)
 
-    def xxx(self):
-        print("xxx")
+    def show_column_data_values(self):
+        col_name = self.ui.ui_column_name.text()
+        df_col = self.df[col_name]
+        df_col1=pd.DataFrame(df_col)
+        model = PandasModel(df_col1)
+        self.main_window_tableView.setModel(model)
+        return model
+
+
+
+
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
