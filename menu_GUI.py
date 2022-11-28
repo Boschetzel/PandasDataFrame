@@ -1,12 +1,11 @@
 import sqlite3
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GUI.account_created import Ui_Form_Acc
 from GUI.login_window import Ui_Form
 from GUI.login_succes import Ui_Log_in_success
 from GUI.login_failed import Ui_log_in_failed
-from GUI.main_window import Ui_MainWindow
-from weather_selenium import WeatherSearch
-from df_model import PandasModel
+from GUI.main_menu_window import Ui_MainWindow
 
 
 class ConnectDB:
@@ -46,51 +45,52 @@ class UiRegisterWindow(ConnectDB):
         self.Form = QtWidgets.QWidget()
         self.ui = Ui_Form_Acc()
         self.ui2 = Ui_Form()
+        self.ui3 = Ui_MainWindow()
         self.Log_in_success = QtWidgets.QWidget()
         self.log_in_failed = QtWidgets.QWidget()
         self.MainWindow = QtWidgets.QMainWindow()
         self.Dialog = QtWidgets.QDialog()
         self.view = QtWidgets.QTableView()
 
-    def setup_ui(self, RegisterWindow):
-        RegisterWindow.setObjectName("RegisterWindow")
-        RegisterWindow.resize(797, 499)
-        self.welcome_label = QtWidgets.QLabel(RegisterWindow)
+    def setup_ui(self, RegisterWindow1):
+        RegisterWindow1.setObjectName("RegisterWindow")
+        RegisterWindow1.resize(797, 499)
+        self.welcome_label = QtWidgets.QLabel(RegisterWindow1)
         self.welcome_label.setGeometry(QtCore.QRect(180, 80, 391, 41))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.welcome_label.setFont(font)
         self.welcome_label.setObjectName("welcome_label")
 
-        self.ui_username = QtWidgets.QLineEdit(RegisterWindow)
+        self.ui_username = QtWidgets.QLineEdit(RegisterWindow1)
         self.ui_username.setGeometry(QtCore.QRect(300, 180, 251, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.ui_username.setFont(font)
         self.ui_username.setObjectName("ui_username")
 
-        self.username = QtWidgets.QLabel(RegisterWindow)
+        self.username = QtWidgets.QLabel(RegisterWindow1)
         self.username.setGeometry(QtCore.QRect(180, 180, 101, 16))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.username.setFont(font)
         self.username.setObjectName("username")
 
-        self.password = QtWidgets.QLabel(RegisterWindow)
+        self.password = QtWidgets.QLabel(RegisterWindow1)
         self.password.setGeometry(QtCore.QRect(180, 230, 101, 16))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.password.setFont(font)
         self.password.setObjectName("password")
 
-        self.email = QtWidgets.QLabel(RegisterWindow)
+        self.email = QtWidgets.QLabel(RegisterWindow1)
         self.email.setGeometry(QtCore.QRect(180, 280, 101, 16))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.email.setFont(font)
         self.email.setObjectName("email")
 
-        self.ui_password = QtWidgets.QLineEdit(RegisterWindow)
+        self.ui_password = QtWidgets.QLineEdit(RegisterWindow1)
         self.ui_password.setGeometry(QtCore.QRect(300, 230, 251, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -98,14 +98,14 @@ class UiRegisterWindow(ConnectDB):
         self.ui_password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.ui_password.setObjectName("ui_password")
 
-        self.ui_email = QtWidgets.QLineEdit(RegisterWindow)
+        self.ui_email = QtWidgets.QLineEdit(RegisterWindow1)
         self.ui_email.setGeometry(QtCore.QRect(300, 280, 251, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.ui_email.setFont(font)
         self.ui_email.setObjectName("ui_email")
 
-        self.registerBtn = QtWidgets.QPushButton(RegisterWindow)
+        self.registerBtn = QtWidgets.QPushButton(RegisterWindow1)
         self.registerBtn.setGeometry(QtCore.QRect(370, 340, 93, 33))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -114,14 +114,14 @@ class UiRegisterWindow(ConnectDB):
         self.registerBtn.clicked.connect(self.register_user)
         self.registerBtn.clicked.connect(self.show_account_created_window)
 
-        self.label_2 = QtWidgets.QLabel(RegisterWindow)
+        self.label_2 = QtWidgets.QLabel(RegisterWindow1)
         self.label_2.setGeometry(QtCore.QRect(130, 430, 241, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
 
-        self.loginBtn1 = QtWidgets.QPushButton(RegisterWindow)
+        self.loginBtn1 = QtWidgets.QPushButton(RegisterWindow1)
         self.loginBtn1.setGeometry(QtCore.QRect(370, 440, 101, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -129,8 +129,8 @@ class UiRegisterWindow(ConnectDB):
         self.loginBtn1.setObjectName("loginBtn1")
         self.loginBtn1.clicked.connect(self.show_login_window)
 
-        self.retranslate_ui(RegisterWindow)
-        QtCore.QMetaObject.connectSlotsByName(RegisterWindow)
+        self.retranslate_ui(RegisterWindow1)
+        QtCore.QMetaObject.connectSlotsByName(RegisterWindow1)
 
     def register_user(self):
         temp_list_info = []
@@ -211,23 +211,13 @@ class UiRegisterWindow(ConnectDB):
 
     def show_main_window(self):
         self.MainWindow = QtWidgets.QMainWindow()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self.MainWindow)
+        self.ui3 = Ui_MainWindow()
+        self.ui3.setupUi(self.MainWindow)
         self.MainWindow.show()
-        ws = WeatherSearch()
-        xx = ws.get_data()
-        self.ui.actionWEB_SELENIUM.triggered.connect(lambda: self.panda_model(xx))
 
-    def panda_model(self, df):
-        model = PandasModel(df)
-        self.view = QtWidgets.QTableView()
-        self.view.setModel(model)
-        self.view.resize(800, 600)
-        self.view.show()
-
-    def retranslate_ui(self, RegisterWindow):
+    def retranslate_ui(self, RegisterWindow1):
         _translate = QtCore.QCoreApplication.translate
-        RegisterWindow.setWindowTitle(_translate("RegisterWindow", "Dialog"))
+        RegisterWindow1.setWindowTitle(_translate("RegisterWindow", "Dialog"))
         self.welcome_label.setText(_translate("RegisterWindow", "Welcome to My Project App"))
         self.username.setText(_translate("RegisterWindow", "Username"))
         self.password.setText(_translate("RegisterWindow", "Password"))
