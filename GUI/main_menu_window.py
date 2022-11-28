@@ -19,6 +19,8 @@ from df_model import PandasModel
 
 class Ui_MainWindow:
     def __init__(self):
+        self.ui_row = Ui_df_operations_window_rows()
+        self.df_operations_rows_wnd = None
         self.df = None
         self.ui = Ui_df_operations_window()
         self.df_operations_window = None
@@ -170,6 +172,7 @@ class Ui_MainWindow:
 
         self.actionOpen.triggered.connect(lambda: self.open_df())
         self.actionShow_column_data.triggered.connect(self.show_column_data_window)
+        self.actionShow_row_data.triggered.connect(self.show_row_data_window)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -204,14 +207,32 @@ class Ui_MainWindow:
     def show_column_data_values(self):
         col_name = self.ui.ui_column_name.text()
         df_col = self.df[col_name]
-        df_col1=pd.DataFrame(df_col)
+        df_col1 = pd.DataFrame(df_col)
         model = PandasModel(df_col1)
         self.main_window_tableView.setModel(model)
         return model
 
+    def show_row_data_window(self):
+        self.df_operations_rows_wnd = QtWidgets.QDialog()
+        self.ui_row = Ui_df_operations_window_rows()
+        self.ui_row.setupUi(self.df_operations_rows_wnd)
+        self.df_operations_rows_wnd.show()
+        self.ui_row.show_results_btn.clicked.connect(self.show_row_data_values)
 
-
-
+    def show_row_data_values(self):
+        search_column = self.ui_row.ui_column_name.text()
+        row_search = self.ui_row.ui_row_name.text()
+        if row_search.isdigit():
+            df_row = self.df.loc[self.df[search_column] == int(row_search)]
+            df_row_save = pd.DataFrame(df_row)
+            model=PandasModel(df_row_save)
+            self.main_window_tableView.setModel(model)
+        else:
+            df_row = self.df.loc[self.df[search_column] == row_search]
+            df_row_save = pd.DataFrame(df_row)
+            model = PandasModel(df_row_save)
+            self.main_window_tableView.setModel(model)
+        return model
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
