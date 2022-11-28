@@ -11,11 +11,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 import pandas as pd
+
+from GUI.show_column_data import Ui_df_operations_window
 from df_model import PandasModel
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow:
     def __init__(self):
+        self.ui = Ui_df_operations_window()
+        self.df_operations_window = None
         self.actionBokeh = None
         self.actionMatPlotLib = None
         self.actionReplace_all_values_in_row = None
@@ -163,6 +167,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuWeatherApp.menuAction())
 
         self.actionOpen.triggered.connect(lambda: self.open_df())
+        self.actionShow_column_data.triggered.connect(self.show_column_data_window)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -185,6 +190,16 @@ class Ui_MainWindow(object):
 
     def open_df(self):
         self.main_window_tableView.setModel(self.pandas_model())
+
+    def show_column_data_window(self):
+        self.df_operations_window = QtWidgets.QDialog()
+        self.ui = Ui_df_operations_window()
+        self.ui.setupUi(self.df_operations_window)
+        self.df_operations_window.show()
+        self.ui.show_results_btn.clicked.connect(self.xxx)
+
+    def xxx(self):
+        print("xxx")
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
