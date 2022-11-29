@@ -14,52 +14,16 @@ import pandas as pd
 
 from GUI.show_column_data import Ui_df_operations_window
 from GUI.show_row_data import Ui_df_operations_window_rows
+from GUI.rename import Ui_rename_column
 from df_model import PandasModel
 
 
 class Ui_MainWindow:
     def __init__(self):
-        self.ui_row = Ui_df_operations_window_rows()
-        self.df_operations_rows_wnd = None
+
         self.df = None
-        self.ui = Ui_df_operations_window()
-        self.df_operations_window = None
-        self.actionBokeh = None
-        self.actionMatPlotLib = None
-        self.actionReplace_all_values_in_row = None
-        self.actionSelect_multiple_columns_2 = None
-        self.actionSplit_column_data = None
-        self.actionSum_up_columns = None
-        self.actionFilter_data_2 = None
-        self.actionAdd_new_column = None
-        self.actionConvert_Str_to_Int = None
-        self.actionConvert_Str_to_Float = None
-        self.actionShow_Data_Head = None
-        self.actionTranspose_DF = None
-        self.actionReplace_values_in_row = None
-        self.actionSelect_multiple_columns = None
-        self.actionSum_columns = None
-        self.actionFilter_data = None
-        self.actionSearch_Weather_Info = None
-        self.actionDelete_column = None
-        self.actionRename_column_2 = None
-        self.actionSearch = None
-        self.actionDelete_colum = None
-        self.actionRename_column = None
-        self.actionShow_row_data = None
-        self.actionShow_column_data = None
-        self.actionSave = None
-        self.actionOpen = None
-        self.statusbar = None
-        self.menuVisualize_data = None
-        self.menuData_Analysis = None
-        self.menuWeatherApp = None
-        self.menuDataFrame = None
-        self.menuFile = None
-        self.menubar = None
-        self.label = None
-        self.main_window_tableView = None
-        self.central_widget = None
+        self.dict_col = {}
+
 
     def setupUi(self, MainWindow1):
         MainWindow1.setObjectName("MainWindow")
@@ -173,6 +137,7 @@ class Ui_MainWindow:
         self.actionOpen.triggered.connect(lambda: self.open_df())
         self.actionShow_column_data.triggered.connect(self.show_column_data_window)
         self.actionShow_row_data.triggered.connect(self.show_row_data_window)
+        self.actionRename_column_2.triggered.connect(self.show_rename_window)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -225,7 +190,7 @@ class Ui_MainWindow:
         if row_search.isdigit():
             df_row = self.df.loc[self.df[search_column] == int(row_search)]
             df_row_save = pd.DataFrame(df_row)
-            model=PandasModel(df_row_save)
+            model = PandasModel(df_row_save)
             self.main_window_tableView.setModel(model)
         else:
             df_row = self.df.loc[self.df[search_column] == row_search]
@@ -233,6 +198,25 @@ class Ui_MainWindow:
             model = PandasModel(df_row_save)
             self.main_window_tableView.setModel(model)
         return model
+
+    def show_rename_window(self):
+        self.rename_col = QtWidgets.QDialog()
+        self.ui_rename = Ui_rename_column()
+        self.ui_rename.setupUi(self.rename_col)
+        self.rename_col.show()
+        self.ui_rename.apply_btn.clicked.connect(self.rename_column)
+
+    def rename_column(self):
+        self.dict_col = {}
+        col_old_name =self.ui_rename.ui_old_name.text()
+        col_new_name = self.ui_rename.ui_new_name.text()
+        self.dict_col[col_old_name] = col_new_name
+        temp = self.df.rename(columns=self.dict_col,inplace=False)
+        new_df = pd.DataFrame(temp)
+        model=PandasModel(new_df)
+        self.main_window_tableView.setModel(model)
+
+
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
