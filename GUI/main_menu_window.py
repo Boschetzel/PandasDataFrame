@@ -15,6 +15,7 @@ import pandas as pd
 from GUI.show_column_data import Ui_df_operations_window
 from GUI.show_row_data import Ui_df_operations_window_rows
 from GUI.rename import Ui_rename_column
+from GUI.delete_column import Ui_df_delete_col
 from df_model import PandasModel
 
 
@@ -23,7 +24,6 @@ class Ui_MainWindow:
 
         self.df = None
         self.dict_col = {}
-
 
     def setupUi(self, MainWindow1):
         MainWindow1.setObjectName("MainWindow")
@@ -138,6 +138,8 @@ class Ui_MainWindow:
         self.actionShow_column_data.triggered.connect(self.show_column_data_window)
         self.actionShow_row_data.triggered.connect(self.show_row_data_window)
         self.actionRename_column_2.triggered.connect(self.show_rename_window)
+        self.actionShow_Data_Head.triggered.connect(self.show_df_head)
+        self.actionDelete_column.triggered.connect(self.show_delete_col_view)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -208,15 +210,33 @@ class Ui_MainWindow:
 
     def rename_column(self):
         self.dict_col = {}
-        col_old_name =self.ui_rename.ui_old_name.text()
+        col_old_name = self.ui_rename.ui_old_name.text()
         col_new_name = self.ui_rename.ui_new_name.text()
         self.dict_col[col_old_name] = col_new_name
-        temp = self.df.rename(columns=self.dict_col,inplace=False)
+        temp = self.df.rename(columns=self.dict_col, inplace=False)
         new_df = pd.DataFrame(temp)
-        model=PandasModel(new_df)
+        model = PandasModel(new_df)
         self.main_window_tableView.setModel(model)
 
+    def show_df_head(self):
+        df = self.df.head()
+        df_head = pd.DataFrame(df)
+        model = PandasModel(df_head)
+        self.main_window_tableView.setModel(model)
 
+    def show_delete_col_view(self):
+        self.delete_col = QtWidgets.QDialog()
+        self.ui = Ui_df_delete_col()
+        self.ui.setupUi(self.delete_col)
+        self.delete_col.show()
+        self.ui.delete_col_btn.clicked.connect(self.delete_column_data)
+
+    def delete_column_data(self):
+        column_to_delete = self.ui.ui_column_name.text()
+        temp = self.df.drop(column_to_delete, axis=1, inplace=False)
+        new_df = pd.DataFrame(temp)
+        model = PandasModel(new_df)
+        self.main_window_tableView.setModel(model)
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate

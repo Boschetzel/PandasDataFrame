@@ -43,8 +43,8 @@ class Ui_rename_column:
     def retranslateUi(self, df_operations_row_window):
         _translate = QtCore.QCoreApplication.translate
         df_operations_row_window.setWindowTitle(_translate("df_operations_window", "Dialog"))
-        self.label.setText(_translate("df_operations_window", "Enter old  name"))
-        self.apply_btn.setText(_translate("df_operations_window", "Show results"))
+        self.label.setText(_translate("df_operations_window", "Enter old name"))
+        self.apply_btn.setText(_translate("df_operations_window", "Apply"))
         self.label_2.setText(_translate("df_operations_window", "Enter new name"))
 
 

@@ -153,7 +153,6 @@ class UiRegisterWindow(ConnectDB):
                 temp_list_info.append(username)
                 temp_list_info.append(password)
                 temp_list_info.append(email)
-                self.show_account_created_window()
                 self.show_main_window()
 
             try:
@@ -177,7 +176,6 @@ class UiRegisterWindow(ConnectDB):
         final_list = sum(temp_list, [])
         while True:
             if username and password in final_list:
-                self.show_login_success_window()
                 self.show_main_window()
                 break
             else:
