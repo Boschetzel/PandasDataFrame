@@ -16,6 +16,7 @@ from GUI.show_column_data import Ui_df_operations_window
 from GUI.show_row_data import Ui_df_operations_window_rows
 from GUI.rename import Ui_rename_column
 from GUI.delete_column import Ui_df_delete_col
+from GUI.add_new_column import Ui_add_new_column
 from df_model import PandasModel
 
 
@@ -140,6 +141,7 @@ class Ui_MainWindow:
         self.actionRename_column_2.triggered.connect(self.show_rename_window)
         self.actionShow_Data_Head.triggered.connect(self.show_df_head)
         self.actionDelete_column.triggered.connect(self.show_delete_col_view)
+        self.actionAdd_new_column.triggered.connect(self.show_add_new_column)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -237,6 +239,23 @@ class Ui_MainWindow:
         new_df = pd.DataFrame(temp)
         model = PandasModel(new_df)
         self.main_window_tableView.setModel(model)
+
+    def show_add_new_column(self):
+        self.add_new_column = QtWidgets.QDialog()
+        self.ui_add_col = Ui_add_new_column()
+        self.ui_add_col.setupUi(self.add_new_column)
+        self.add_new_column.show()
+        self.ui_add_col.add_col_btn.clicked.connect(self.add_column)
+
+    def add_column(self):
+        ui_col_loc = int(self.ui_add_col.ui_col_position.text())
+        ui_new_col_name = self.ui_add_col.ui_new_col_name.text()
+        ui_content = self.ui_add_col.ui_data_fill.text()
+        self.df.insert(ui_col_loc, ui_new_col_name, ui_content)
+        df = pd.DataFrame(self.df)
+        model = PandasModel(df)
+        self.main_window_tableView.setModel(model)
+        # self.df[ui_new_col_name] = pd.DataFrame([ui_content for _ in range(len(self.df.index))])
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
