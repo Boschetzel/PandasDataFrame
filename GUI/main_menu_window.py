@@ -19,12 +19,13 @@ class Ui_MainWindow:
 
     def setupUi(self, MainWindow1):
         MainWindow1.setObjectName("MainWindow")
-        MainWindow1.resize(1172, 838)
+        #MainWindow1.resize(1172, 838)
+        MainWindow1.showMaximized()
         self.central_widget = QtWidgets.QWidget(MainWindow1)
         self.central_widget.setObjectName("centralwidget")
 
         self.main_window_tableView = QtWidgets.QTableView(self.central_widget)
-        self.main_window_tableView.setGeometry(QtCore.QRect(190, 120, 771, 501))
+        self.main_window_tableView.setGeometry(QtCore.QRect(190, 120, 1650, 800))
         self.main_window_tableView.setObjectName("main_window_tableView")
 
         self.label = QtWidgets.QLabel(self.central_widget)
@@ -314,7 +315,8 @@ class Ui_MainWindow:
         _translate = QtCore.QCoreApplication.translate
         MainWindow1.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
-        self.label.setText(_translate("MainWindow", "DataFrame "))
+        self.label.setText(_translate("MainWindow", "Welcome to my Pandas Dataframe Project - By Boschetzel"))
+        self.label.adjustSize()
 
         self.menuFile.setTitle(_translate("MainWindow", "File"))
 

@@ -68,7 +68,8 @@ class Ui_add_new_column(object):
     def retranslateUi(self, add_new_column):
         _translate = QtCore.QCoreApplication.translate
         add_new_column.setWindowTitle(_translate("add_new_column", "Dialog"))
-        self.label.setText(_translate("add_new_column", "Create new column on a specific location and fill it with data "))
+        self.label.setText(
+            _translate("add_new_column", "Create new column on a specific location and fill it with data "))
         self.label_2.setText(_translate("add_new_column", "Enter position of new column"))
         self.label_4.setText(_translate("add_new_column", "Enter the name of new column"))
         self.label_5.setText(_translate("add_new_column", "Enter the data to fill the column"))
@@ -78,6 +79,7 @@ class Ui_add_new_column(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     add_new_column = QtWidgets.QDialog()
     ui = Ui_add_new_column()
