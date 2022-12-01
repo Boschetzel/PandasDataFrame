@@ -10,6 +10,7 @@ from GUI.add_new_column import Ui_add_new_column
 from GUI.filter_col_data import Ui_filter_col_data
 from GUI.sum_columns import Ui_sum_columns
 from GUI.split_col_data import Ui_split_col_data
+from GUI.select_multiple_col import Ui_df_select_multiple_col
 from df_model import PandasModel
 
 
@@ -144,6 +145,7 @@ class Ui_MainWindow:
         self.actionFilter_data_2.triggered.connect(self.show_filter_col_window)
         self.actionSum_up_columns.triggered.connect(self.show_sum_up_column_window)
         self.actionSplit_column_data.triggered.connect(self.show_split_col_window)
+        self.actionSelect_multiple_columns_2.triggered.connect(self.show_select_multiple_col_window)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -332,6 +334,20 @@ class Ui_MainWindow:
         model = PandasModel(df_split)
         self.main_window_tableView.setModel(model)
 
+    def show_select_multiple_col_window(self):
+        self.df_sel_columns = QtWidgets.QDialog()
+        self.ui_select = Ui_df_select_multiple_col()
+        self.ui_select.setupUi(self.df_sel_columns)
+        self.df_sel_columns.show()
+        self.ui_select.select_columns_btn.clicked.connect(self.select_multiple_col)
+
+    def select_multiple_col(self):
+        name_first_col = str(self.ui_select.ui_first_col_name.text())
+        name_last_col = str(self.ui_select.ui_last_col_name.text())
+        temp = self.df.loc[:, name_first_col:name_last_col]
+        new_df = pd.DataFrame(temp)
+        model = PandasModel(new_df)
+        self.main_window_tableView.setModel(model)
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
