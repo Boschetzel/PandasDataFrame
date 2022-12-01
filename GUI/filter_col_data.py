@@ -54,7 +54,7 @@ class Ui_filter_col_data(object):
 
     def retranslateUi(self, filter_column_data):
         _translate = QtCore.QCoreApplication.translate
-        filter_column_data.setWindowTitle(_translate("add_new_column", "Dialog"))
+        filter_column_data.setWindowTitle(_translate("add_new_column", "Filter Column"))
         self.label.setText(_translate("add_new_column", "Filter column data based on a min and max value  "))
         self.label_2.setText(_translate("add_new_column", "Enter column name"))
         self.label_4.setText(_translate("add_new_column", "Enter minimum value"))

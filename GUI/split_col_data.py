@@ -35,7 +35,7 @@ class Ui_split_col_data:
 
     def retranslateUi(self, df_operations_row_window):
         _translate = QtCore.QCoreApplication.translate
-        df_operations_row_window.setWindowTitle(_translate("df_operations_window", "Dialog"))
+        df_operations_row_window.setWindowTitle(_translate("df_operations_window", "Split column data"))
         self.label.setText(_translate("df_operations_window", "Enter the column name"))
         self.split_btn.setText(_translate("df_operations_window", "Apply"))
         self.label_2.setText(_translate("df_operations_window", "Which is the separator?"))

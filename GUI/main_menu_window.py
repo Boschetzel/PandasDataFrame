@@ -11,7 +11,13 @@ from GUI.filter_col_data import Ui_filter_col_data
 from GUI.sum_columns import Ui_sum_columns
 from GUI.split_col_data import Ui_split_col_data
 from GUI.select_multiple_col import Ui_df_select_multiple_col
+from GUI.add_new_row import Ui_df_add_new_rows
+from GUI.plot_mat import Ui_graph_matplotlib
 from df_model import PandasModel
+import matplotlib.pyplot as plt
+from bokeh.plotting import figure
+from bokeh.io import show, output_file
+import numpy as np
 
 
 class Ui_MainWindow:
@@ -146,6 +152,8 @@ class Ui_MainWindow:
         self.actionSum_up_columns.triggered.connect(self.show_sum_up_column_window)
         self.actionSplit_column_data.triggered.connect(self.show_split_col_window)
         self.actionSelect_multiple_columns_2.triggered.connect(self.show_select_multiple_col_window)
+        self.actionReplace_all_values_in_row.triggered.connect(self.show_add_new_row_window)
+        self.actionMatPlotLib.triggered.connect(self.show_matplot_window)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -172,6 +180,10 @@ class Ui_MainWindow:
 
     def open_df(self):
         self.main_window_tableView.setModel(self.pandas_model())
+
+    def clean_nan_values(self):
+        self.df.fillna(0)
+        return self.df
 
     # DATA OPERATIONS MENU :
     # SHOW DATA HEAD
@@ -349,10 +361,121 @@ class Ui_MainWindow:
         model = PandasModel(new_df)
         self.main_window_tableView.setModel(model)
 
+    def show_add_new_row_window(self):
+        self.df_replace_values = QtWidgets.QDialog()
+        self.ui_replace = Ui_df_add_new_rows()
+        self.ui_replace.setupUi(self.df_replace_values)
+        self.df_replace_values.show()
+        self.ui_replace.replace_btn.clicked.connect(self.add_new_row)
 
+    def add_new_row(self):
+        num_row = self.ui_replace.ui_row_name.text()
+        new_value = self.ui_replace.ui_fill_row_value.text()
+        self.df.loc[num_row] = new_value
+        model = PandasModel(self.df)
+        self.main_window_tableView.setModel(model)
 
-     #DATA VISUALIZATION MENU
+    # DATA VISUALIZATION MENU
+    # MATPLOTLIB
+    # BOKEH
 
+    def show_matplot_window(self):
+        self.graph_matplotlib = QtWidgets.QDialog()
+        self.ui_graph = Ui_graph_matplotlib()
+        self.ui_graph.setupUi(self.graph_matplotlib)
+        self.graph_matplotlib.show()
+        self.ui_graph.simple_plot_btn.clicked.connect(self.plot_simple_graph)
+        self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_scatter_graph)
+        self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_bar_graph)
+        self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_stem_graph)
+        self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_step_graph)
+
+    def plot_simple_graph(self):
+        plt.style.use('_mpl-gallery')
+        x_col = self.ui_graph.ui_X_column.text()
+        y_col = self.ui_graph.ui_Y_column.text()
+        x = self.df[x_col][1:]
+        y = self.df[y_col][1:]
+        fig, ax = plt.subplots()
+        ax.plot(x, y, linewidth=2.0)
+        plt.show()
+
+    def plot_scatter_graph(self):
+        plt.style.use('_mpl-gallery')
+
+        # make the data
+        np.random.seed(3)
+        x = 4 + np.random.normal(0, 2, 24)
+        y = 4 + np.random.normal(0, 2, len(x))
+        # size and color:
+        sizes = np.random.uniform(15, 80, len(x))
+        colors = np.random.uniform(15, 80, len(x))
+
+        # plot
+        fig, ax = plt.subplots()
+
+        ax.scatter(x, y, s=sizes, c=colors, vmin=0, vmax=100)
+
+        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+               ylim=(0, 8), yticks=np.arange(1, 8))
+
+        plt.show()
+
+    def plot_bar_graph(self):
+        plt.style.use('_mpl-gallery')
+        x_col = self.ui_graph.ui_X_column.text()
+        y_col = self.ui_graph.ui_Y_column.text()
+        x = self.df[x_col][1:]
+        y = self.df[y_col][1:]
+        fig, ax = plt.subplots()
+        ax.bar(x, y, width=1, edgecolor="white", linewidth=0.7)
+        plt.show()
+
+    def plot_stem_graph(self):
+        plt.style.use('_mpl-gallery')
+
+        # make data
+        np.random.seed(3)
+        x = 0.5 + np.arange(8)
+        y = np.random.uniform(2, 7, len(x))
+
+        # plot
+        fig, ax = plt.subplots()
+
+        ax.stem(x, y)
+
+        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+               ylim=(0, 8), yticks=np.arange(1, 8))
+
+        plt.show()
+
+    def plot_step_graph(self):
+        plt.style.use('_mpl-gallery')
+
+        # make data
+        np.random.seed(3)
+        x = 0.5 + np.arange(8)
+        y = np.random.uniform(2, 7, len(x))
+
+        # plot
+        fig, ax = plt.subplots()
+
+        ax.step(x, y, linewidth=2.5)
+
+        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+               ylim=(0, 8), yticks=np.arange(1, 8))
+
+        plt.show()
+
+    def plot_bokeh_scatter(self):
+        x_col = self.ui_graph.ui_X_column.text()
+        x = self.df[x_col][1:]
+        y_col = self.ui_graph.ui_Y_column.text()
+        y = self.df[y_col][1:]
+        p = figure(title="Simple plot graph", x_axis_label=x_col, y_axis_label=y_col)
+        p.scatter(x, y, line_width=2)
+        output_file("Scatter_graph.html")
+        show(p)
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
@@ -417,7 +540,7 @@ class Ui_MainWindow:
 
         self.actionSelect_multiple_columns_2.setText(_translate("MainWindow", "Select multiple columns"))
 
-        self.actionReplace_all_values_in_row.setText(_translate("MainWindow", "Replace all values in row"))
+        self.actionReplace_all_values_in_row.setText(_translate("MainWindow", "Add new row"))
 
         self.actionMatPlotLib.setText(_translate("MainWindow", "MatPlotLib"))
 

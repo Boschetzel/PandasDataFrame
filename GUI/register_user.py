@@ -87,7 +87,7 @@ class Ui_RegisterWindow:
 
     def retranslateUi(self, RegisterWindow):
         _translate = QtCore.QCoreApplication.translate
-        RegisterWindow.setWindowTitle(_translate("RegisterWindow", "Dialog"))
+        RegisterWindow.setWindowTitle(_translate("RegisterWindow", "Register User"))
         self.welcome_label.setText(_translate("RegisterWindow", "Welcome to My Project App"))
         self.username.setText(_translate("RegisterWindow", "Username"))
         self.password.setText(_translate("RegisterWindow", "Password"))
