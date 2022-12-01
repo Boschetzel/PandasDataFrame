@@ -8,13 +8,15 @@
 ## About
 
 PandasDataFrame is a simple Python project for viewing,
-plotting and analyzing Pandas DataFrames.
+analyzing  and  plotting Pandas DataFrames.
 
 Final project will make possible getting data
 from a web API, csv file or web scrapping.
 
 After the project is functional in console with
 all the options I will make a GUI for it.
+Update: project have a GUI almost finished 
+(still have few options to be implemented)
 
 ## Demo
 
@@ -29,9 +31,12 @@ not available atm.Will be published after the final version is made.
 ```
 
 ## Usage
+  Main usage of this Project:
+- Get data from different sources (local computer,API,Selenium)
+- Perform different actions on the DataFrame
+- Analyze the data
+- Visualize data (plotting)
 
-The project main goal is to be able to get data from different sources and refactor it,
-so it can be used in business decisions.
 
 ```python
 #import pandas as pd
@@ -41,26 +46,33 @@ so it can be used in business decisions.
 
 ```
 
-PandasDataFrame comes with sample dataset that will download on first use.
+PandasDataFrame comes with 3 sample datasets that will download on first use.
+- Covid DataSet
+- FIFA Dataset
+- Weather Dataset(from Selenium)
 
 ## Features
 
-- View DataFrames
-- Interactive plotting
-- Filtering
-- Statistics summary
-- Data editing
-- Import CSV files
-- Search
-- Basic data visualization with Bokeh
-- Get data from web API
+- Open/Save *.csv files
+- DataFrame operations: Data Head
+  - Show Column Data,
+  - Show Row Data,
+  - Rename Column, 
+  - Delete Column
+-DataFrame analysis:
+  - Add new column
+  - Filter column
+  - Split columns (if data have separators)
+  - Select a range of columns 
+- DataFrame visualization
+  - Matplotlib 
+  - Bokeh
+- Get data (*.csv) using Selenium
 
 ## More Info
 
 **Issues, feedback and pull requests are welcome.**
 
-This project is still in version 0.1.1 and subject to breaking changes. The latest changes will be on the `develop`
-branch, and will be occasionally merged to `master` as a release with a tag indicating the version number and published
-to PyPi.
+This project is still in version 1.0.0 and subject to further changes.
 
 If you like this project remember to leave a ⭐! 

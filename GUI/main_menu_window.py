@@ -349,6 +349,11 @@ class Ui_MainWindow:
         model = PandasModel(new_df)
         self.main_window_tableView.setModel(model)
 
+
+
+     #DATA VISUALIZATION MENU
+
+
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
         MainWindow1.setWindowTitle(_translate("MainWindow", "MainWindow"))

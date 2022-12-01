@@ -1,7 +1,7 @@
 name = "pandas-dataframe"
-version = "0.2.0"
-description = "A simple project to view and perform operations on Pandas DataFrames."
-author = "eRandom"
+version = "1.0.0"
+description = "A simple project to view ,perform and analyze  Pandas DataFrames."
+author = "Boschetzel"
 author_email = "mbogdan.fometescu@gmail.com"
 url = "https://github.com/Boschetzel/PandasDataFrame.git"
 install_requires = [
@@ -10,7 +10,6 @@ install_requires = [
     "bokeh",
     "requests",
     "os",
-    "tkinter",
     "selenium",
     "sqlite3",
     "pyqt5"
