@@ -8,6 +8,8 @@ from GUI.rename_column import Ui_rename_column
 from GUI.delete_column import Ui_df_delete_col
 from GUI.add_new_column import Ui_add_new_column
 from GUI.filter_col_data import Ui_filter_col_data
+from GUI.sum_columns import Ui_sum_columns
+from GUI.split_col_data import Ui_split_col_data
 from df_model import PandasModel
 
 
@@ -19,7 +21,7 @@ class Ui_MainWindow:
 
     def setupUi(self, MainWindow1):
         MainWindow1.setObjectName("MainWindow")
-        #MainWindow1.resize(1172, 838)
+        # MainWindow1.resize(1172, 838)
         MainWindow1.showMaximized()
         self.central_widget = QtWidgets.QWidget(MainWindow1)
         self.central_widget.setObjectName("centralwidget")
@@ -53,6 +55,7 @@ class Ui_MainWindow:
         self.statusbar = QtWidgets.QStatusBar(MainWindow1)
         self.statusbar.setObjectName("statusbar")
 
+        # MENU OBJECTS
         MainWindow1.setStatusBar(self.statusbar)
         self.actionOpen = QtWidgets.QAction(MainWindow1)
         self.actionOpen.setObjectName("actionOpen")
@@ -107,6 +110,7 @@ class Ui_MainWindow:
         self.actionBokeh = QtWidgets.QAction(MainWindow1)
         self.actionBokeh.setObjectName("actionBokeh")
 
+        # MENU ACTIONS
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave)
         self.menuDataFrame.addAction(self.actionShow_Data_Head)
@@ -129,7 +133,7 @@ class Ui_MainWindow:
         self.menubar.addAction(self.menuVisualize_data.menuAction())
         self.menubar.addAction(self.menuWeatherApp.menuAction())
 
-        # MENU OPTIONS TRIGGER
+        # MENU TRIGGERS
         self.actionOpen.triggered.connect(lambda: self.open_df())
         self.actionShow_column_data.triggered.connect(self.show_column_data_window)
         self.actionShow_row_data.triggered.connect(self.show_row_data_window)
@@ -138,6 +142,8 @@ class Ui_MainWindow:
         self.actionDelete_column.triggered.connect(self.show_delete_col_view)
         self.actionAdd_new_column.triggered.connect(self.show_add_new_column)
         self.actionFilter_data_2.triggered.connect(self.show_filter_col_window)
+        self.actionSum_up_columns.triggered.connect(self.show_sum_up_column_window)
+        self.actionSplit_column_data.triggered.connect(self.show_split_col_window)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -290,25 +296,41 @@ class Ui_MainWindow:
         # TODO - fix nan values for Covid Dataset ( check type of values from CSV)
 
     def show_sum_up_column_window(self):
-        pass
+        self.sum_columns = QtWidgets.QDialog()
+        self.ui_sum_col = Ui_sum_columns()
+        self.ui_sum_col.setupUi(self.sum_columns)
+        self.sum_columns.show()
+        self.ui_sum_col.sum_col_btn.clicked.connect(self.sum_columns_up)
 
-    def sum_columns(self):
-        pass
+    def sum_columns_up(self):
+        sum_col_lst = []
+        self.df.fillna(0)
+        ui_col_loc = int(self.ui_sum_col.col_new_position.text())
+        col_to_add = str(self.ui_sum_col.new_col_name.text())
+        col_1 = str(self.ui_sum_col.first_col_to_sum.text())
+        col_2 = str(self.ui_sum_col.second_col_to_sum.text())
+        self.df.insert(ui_col_loc, col_to_add, False)
+        sum_col_lst.append(col_1)
+        sum_col_lst.append(col_2)
+        df = self.df[col_to_add] = self.df[sum_col_lst].sum(axis=1)
+        df_new = pd.DataFrame(df)
+        model = PandasModel(df_new)
+        self.main_window_tableView.setModel(model)
 
+    def show_split_col_window(self):
+        self.df_split = QtWidgets.QDialog()
+        self.ui_split = Ui_split_col_data()
+        self.ui_split.setupUi(self.df_split)
+        self.df_split.show()
+        self.ui_split.split_btn.clicked.connect(self.split_col_and_expand)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def split_col_and_expand(self):
+        col_name = str(self.ui_split.ui_column_name.text())
+        separator = str(self.ui_split.ui_separator.text())
+        temp = self.df[col_name].str.split(separator, expand=True)
+        df_split = pd.DataFrame(temp)
+        model = PandasModel(df_split)
+        self.main_window_tableView.setModel(model)
 
 
     def retranslateUi(self, MainWindow1):
