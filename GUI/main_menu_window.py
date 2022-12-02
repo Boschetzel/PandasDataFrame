@@ -496,6 +496,13 @@ class Ui_MainWindow:
         output_file("Bar_graph.html")
         show(p)
 
+
+
+
+
+
+
+
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
         MainWindow1.setWindowTitle(_translate("MainWindow", "MainWindow"))
