@@ -13,11 +13,12 @@ from GUI.split_col_data import Ui_split_col_data
 from GUI.select_multiple_col import Ui_df_select_multiple_col
 from GUI.add_new_row import Ui_df_add_new_rows
 from GUI.plot_mat import Ui_graph_matplotlib
+from GUI.plot_bokeh import Ui_graph_bokeh
 from df_model import PandasModel
 import matplotlib.pyplot as plt
 from bokeh.plotting import figure
 from bokeh.io import show, output_file
-import numpy as np
+
 
 
 class Ui_MainWindow:
@@ -28,7 +29,6 @@ class Ui_MainWindow:
 
     def setupUi(self, MainWindow1):
         MainWindow1.setObjectName("MainWindow")
-        # MainWindow1.resize(1172, 838)
         MainWindow1.showMaximized()
         self.central_widget = QtWidgets.QWidget(MainWindow1)
         self.central_widget.setObjectName("centralwidget")
@@ -154,6 +154,7 @@ class Ui_MainWindow:
         self.actionSelect_multiple_columns_2.triggered.connect(self.show_select_multiple_col_window)
         self.actionReplace_all_values_in_row.triggered.connect(self.show_add_new_row_window)
         self.actionMatPlotLib.triggered.connect(self.show_matplot_window)
+        self.actionBokeh.triggered.connect(self.show_bokeh_plot_window)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -184,6 +185,10 @@ class Ui_MainWindow:
     def clean_nan_values(self):
         self.df.fillna(0)
         return self.df
+
+    def save_df(self):
+        file_to_save = self.get_csv_filename()
+        pass
 
     # DATA OPERATIONS MENU :
     # SHOW DATA HEAD
@@ -386,9 +391,9 @@ class Ui_MainWindow:
         self.graph_matplotlib.show()
         self.ui_graph.simple_plot_btn.clicked.connect(self.plot_simple_graph)
         self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_scatter_graph)
-        self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_bar_graph)
-        self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_stem_graph)
-        self.ui_graph.scatter_plot_btn.clicked.connect(self.plot_step_graph)
+        self.ui_graph.bar_btn.clicked.connect(self.plot_bar_graph)
+        self.ui_graph.stem_btn.clicked.connect(self.plot_stem_graph)
+        self.ui_graph.step_btn.clicked.connect(self.plot_step_graph)
 
     def plot_simple_graph(self):
         plt.style.use('_mpl-gallery')
@@ -402,23 +407,12 @@ class Ui_MainWindow:
 
     def plot_scatter_graph(self):
         plt.style.use('_mpl-gallery')
-
-        # make the data
-        np.random.seed(3)
-        x = 4 + np.random.normal(0, 2, 24)
-        y = 4 + np.random.normal(0, 2, len(x))
-        # size and color:
-        sizes = np.random.uniform(15, 80, len(x))
-        colors = np.random.uniform(15, 80, len(x))
-
-        # plot
+        x_col = self.ui_graph.ui_X_column.text()
+        y_col = self.ui_graph.ui_Y_column.text()
+        x = self.df[x_col][1:]
+        y = self.df[y_col][1:]
         fig, ax = plt.subplots()
-
-        ax.scatter(x, y, s=sizes, c=colors, vmin=0, vmax=100)
-
-        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
-               ylim=(0, 8), yticks=np.arange(1, 8))
-
+        ax.scatter(x, y)
         plt.show()
 
     def plot_bar_graph(self):
@@ -433,48 +427,73 @@ class Ui_MainWindow:
 
     def plot_stem_graph(self):
         plt.style.use('_mpl-gallery')
-
-        # make data
-        np.random.seed(3)
-        x = 0.5 + np.arange(8)
-        y = np.random.uniform(2, 7, len(x))
-
-        # plot
+        x_col = self.ui_graph.ui_X_column.text()
+        y_col = self.ui_graph.ui_Y_column.text()
+        x = self.df[x_col][1:]
+        y = self.df[y_col][1:]
         fig, ax = plt.subplots()
-
         ax.stem(x, y)
-
-        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
-               ylim=(0, 8), yticks=np.arange(1, 8))
-
         plt.show()
 
     def plot_step_graph(self):
         plt.style.use('_mpl-gallery')
-
-        # make data
-        np.random.seed(3)
-        x = 0.5 + np.arange(8)
-        y = np.random.uniform(2, 7, len(x))
-
-        # plot
+        x_col = self.ui_graph.ui_X_column.text()
+        y_col = self.ui_graph.ui_Y_column.text()
+        x = self.df[x_col][1:]
+        y = self.df[y_col][1:]
         fig, ax = plt.subplots()
-
         ax.step(x, y, linewidth=2.5)
-
-        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
-               ylim=(0, 8), yticks=np.arange(1, 8))
-
         plt.show()
 
+    def show_bokeh_plot_window(self):
+        self.graph_with_bokeh = QtWidgets.QDialog()
+        self.ui_bokeh = Ui_graph_bokeh()
+        self.ui_bokeh.setupUi(self.graph_with_bokeh)
+        self.graph_with_bokeh.show()
+        self.ui_bokeh.line_plot_btn.clicked.connect(self.plot_bokeh_line)
+        self.ui_bokeh.scatter_plot_btn.clicked.connect(self.plot_bokeh_scatter)
+        self.ui_bokeh.bar_btn.clicked.connect(self.plot_bokeh_bar)
+        self.ui_bokeh.step_btn.clicked.connect(self.plot_bokeh_step)
+
     def plot_bokeh_scatter(self):
-        x_col = self.ui_graph.ui_X_column.text()
+        x_col = self.ui_bokeh.ui_X_column.text()
         x = self.df[x_col][1:]
-        y_col = self.ui_graph.ui_Y_column.text()
+        y_col = self.ui_bokeh.ui_Y_column.text()
         y = self.df[y_col][1:]
-        p = figure(title="Simple plot graph", x_axis_label=x_col, y_axis_label=y_col)
+        p = figure(title="Simple Scatter graph", x_axis_label=x_col, y_axis_label=y_col)
         p.scatter(x, y, line_width=2)
         output_file("Scatter_graph.html")
+        show(p)
+
+    def plot_bokeh_line(self):
+        x_col = self.ui_bokeh.ui_X_column.text()
+        x = self.df[x_col][1:]
+        y_col = self.ui_bokeh.ui_Y_column.text()
+        y = self.df[y_col][1:]
+        p = figure(title="Simple Line graph", x_axis_label=x_col, y_axis_label=y_col)
+        p.line(x, y, line_width=2)
+        output_file("Line_graph.html")
+        show(p)
+
+
+    def plot_bokeh_step(self):
+        x_col = self.ui_bokeh.ui_X_column.text()
+        x = self.df[x_col][1:]
+        y_col = self.ui_bokeh.ui_Y_column.text()
+        y = self.df[y_col][1:]
+        p = figure(title="Simple Step graph", x_axis_label=x_col, y_axis_label=y_col)
+        p.step(x, y, line_width=2,mode="center")
+        output_file("Step_graph.html")
+        show(p)
+
+    def plot_bokeh_bar(self):
+        x_col = self.ui_bokeh.ui_X_column.text()
+        x = self.df[x_col][1:]
+        y_col = self.ui_bokeh.ui_Y_column.text()
+        y = self.df[y_col][1:]
+        p = figure(title="Simple Bar graph", x_axis_label=x_col, y_axis_label=y_col)
+        p.vbar(x,top= y, width=0.5, bottom=0,color="firebrick")
+        output_file("Bar_graph.html")
         show(p)
 
     def retranslateUi(self, MainWindow1):
