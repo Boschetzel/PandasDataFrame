@@ -1,5 +1,5 @@
 name = "pandas-dataframe"
-version = "1.0.0"
+version = "1.0.1"
 description = "A simple project to view ,perform and analyze  Pandas DataFrames."
 author = "Boschetzel"
 author_email = "mbogdan.fometescu@gmail.com"
@@ -12,5 +12,6 @@ install_requires = [
     "os",
     "selenium",
     "sqlite3",
+    "matplotlib",
     "pyqt5"
 ]

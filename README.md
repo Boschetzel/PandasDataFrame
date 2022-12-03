@@ -1,6 +1,5 @@
 - [About](#about)
 - [Demo](#demo)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
 - [More Info](#more-info)
@@ -13,22 +12,17 @@ analyzing  and  plotting Pandas DataFrames.
 Final project will make possible getting data
 from a web API, csv file or web scrapping.
 
-After the project is functional in console with
-all the options I will make a GUI for it.
-Update: project have a GUI almost finished 
-(still have few options to be implemented)
+I used Pyqt5 to create a GUI for this project with some basic functionalities.
+This GUI is not design to look good, just to make the project functional,as
+my intention with this project was to learn to code not to design GUI.
+
+Now I am learning some ML algo in order to implement a prediction algo for the datasets.
 
 ## Demo
 
 ![img.png](img.png)
 
-## Installation
 
-Install the latest release from PyPi:
-
-```shell
-not available atm.Will be published after the final version is made.
-```
 
 ## Usage
   Main usage of this Project:
@@ -49,7 +43,7 @@ not available atm.Will be published after the final version is made.
 PandasDataFrame comes with 3 sample datasets that will download on first use.
 - Covid DataSet
 - FIFA Dataset
-- Weather Dataset(from Selenium)
+
 
 ## Features
 
@@ -73,6 +67,6 @@ PandasDataFrame comes with 3 sample datasets that will download on first use.
 
 **Issues, feedback and pull requests are welcome.**
 
-This project is still in version 1.0.0 and subject to further changes.
+This project is still in version 1.0.1 and subject to further changes.
 
 If you like this project remember to leave a ⭐! 

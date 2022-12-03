@@ -14,11 +14,39 @@ from GUI.select_multiple_col import Ui_df_select_multiple_col
 from GUI.add_new_row import Ui_df_add_new_rows
 from GUI.plot_mat import Ui_graph_matplotlib
 from GUI.plot_bokeh import Ui_graph_bokeh
+from GUI.weather import Ui_weather_info_selenium
+
 from df_model import PandasModel
 import matplotlib.pyplot as plt
 from bokeh.plotting import figure
 from bokeh.io import show, output_file
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+"""This Class contains all the functionalities of the PandasDataFrame Project:
+# FILE MENU :
+    # OPEN
+# DATA OPERATIONS MENU :
+    # SHOW DATA HEAD
+    # SHOW COLUMN DATA
+    # SHOW ROW DATA
+    # RENAME COLUMN
+    # DELETE COLUMN 
+# DATA ANALYSIS MENU :
+    # ADD NEW COLUMN
+    # FILTER COLUMN
+    # SUM UP COLUMNS
+    # SPLIT COLUMNS
+    # SELECT MULTIPLE COLUMNS 
+# DATA VISUALIZATION MENU
+    # MATPLOTLIB
+    # BOKEH 
+# WEATHER INFO MENU
+    # THIS WORKS ONLY FOR ROMANIAN CITIES (IF YOU NEED OTHER COUNTRIES YOU MUST CHANGE THE PATH)     
+    """
 
 
 class Ui_MainWindow:
@@ -66,8 +94,8 @@ class Ui_MainWindow:
         MainWindow1.setStatusBar(self.statusbar)
         self.actionOpen = QtWidgets.QAction(MainWindow1)
         self.actionOpen.setObjectName("actionOpen")
-        self.actionSave = QtWidgets.QAction(MainWindow1)
-        self.actionSave.setObjectName("actionSave")
+        # self.actionSave = QtWidgets.QAction(MainWindow1)
+        # self.actionSave.setObjectName("actionSave")
         self.actionShow_column_data = QtWidgets.QAction(MainWindow1)
         self.actionShow_column_data.setObjectName("actionShow_column_data")
         self.actionShow_row_data = QtWidgets.QAction(MainWindow1)
@@ -92,8 +120,8 @@ class Ui_MainWindow:
         self.actionSelect_multiple_columns.setObjectName("actionSelect_multiple_columns")
         self.actionReplace_values_in_row = QtWidgets.QAction(MainWindow1)
         self.actionReplace_values_in_row.setObjectName("actionReplace_values_in_row")
-        self.actionTranspose_DF = QtWidgets.QAction(MainWindow1)
-        self.actionTranspose_DF.setObjectName("actionTranspose_DF")
+        # self.actionTranspose_DF = QtWidgets.QAction(MainWindow1)
+        # self.actionTranspose_DF.setObjectName("actionTranspose_DF")
         self.actionShow_Data_Head = QtWidgets.QAction(MainWindow1)
         self.actionShow_Data_Head.setObjectName("actionShow_Data_Head")
         self.actionConvert_Str_to_Float = QtWidgets.QAction(MainWindow1)
@@ -119,7 +147,7 @@ class Ui_MainWindow:
 
         # MENU ACTIONS
         self.menuFile.addAction(self.actionOpen)
-        self.menuFile.addAction(self.actionSave)
+        # self.menuFile.addAction(self.actionSave)
         self.menuDataFrame.addAction(self.actionShow_Data_Head)
         self.menuDataFrame.addAction(self.actionShow_column_data)
         self.menuDataFrame.addAction(self.actionShow_row_data)
@@ -155,13 +183,15 @@ class Ui_MainWindow:
         self.actionReplace_all_values_in_row.triggered.connect(self.show_add_new_row_window)
         self.actionMatPlotLib.triggered.connect(self.show_matplot_window)
         self.actionBokeh.triggered.connect(self.show_bokeh_plot_window)
+        self.actionSearch_Weather_Info.triggered.connect(self.show_weather_info_window)
+        # self.actionSave.triggered.connect(lambda: self.save_df())
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
 
     # FILE MENU :
     # OPEN
-    # SAVE
+
     @staticmethod
     def get_csv_filename():
         filename, _ = QFileDialog.getOpenFileName()
@@ -187,8 +217,8 @@ class Ui_MainWindow:
         return self.df
 
     def save_df(self):
-        file_to_save = self.get_csv_filename()
-        pass
+        df_to_save = pd.DataFrame(self.df)
+        df_to_save.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
 
     # DATA OPERATIONS MENU :
     # SHOW DATA HEAD
@@ -312,7 +342,6 @@ class Ui_MainWindow:
         df = pd.DataFrame(temp3)
         model = PandasModel(df)
         self.main_window_tableView.setModel(model)
-        # TODO - fix nan values for Covid Dataset ( check type of values from CSV)
 
     def show_sum_up_column_window(self):
         self.sum_columns = QtWidgets.QDialog()
@@ -384,6 +413,7 @@ class Ui_MainWindow:
     # MATPLOTLIB
     # BOKEH
 
+    # MATPLOTLIB GRAPHS
     def show_matplot_window(self):
         self.graph_matplotlib = QtWidgets.QDialog()
         self.ui_graph = Ui_graph_matplotlib()
@@ -445,6 +475,7 @@ class Ui_MainWindow:
         ax.step(x, y, linewidth=2.5)
         plt.show()
 
+    # BOKEH GRAPHS
     def show_bokeh_plot_window(self):
         self.graph_with_bokeh = QtWidgets.QDialog()
         self.ui_bokeh = Ui_graph_bokeh()
@@ -475,14 +506,13 @@ class Ui_MainWindow:
         output_file("Line_graph.html")
         show(p)
 
-
     def plot_bokeh_step(self):
         x_col = self.ui_bokeh.ui_X_column.text()
         x = self.df[x_col][1:]
         y_col = self.ui_bokeh.ui_Y_column.text()
         y = self.df[y_col][1:]
         p = figure(title="Simple Step graph", x_axis_label=x_col, y_axis_label=y_col)
-        p.step(x, y, line_width=2,mode="center")
+        p.step(x, y, line_width=2, mode="center")
         output_file("Step_graph.html")
         show(p)
 
@@ -492,16 +522,66 @@ class Ui_MainWindow:
         y_col = self.ui_bokeh.ui_Y_column.text()
         y = self.df[y_col][1:]
         p = figure(title="Simple Bar graph", x_axis_label=x_col, y_axis_label=y_col)
-        p.vbar(x,top= y, width=0.5, bottom=0,color="firebrick")
+        p.vbar(x, top=y, width=0.5, bottom=0, color="firebrick")
         output_file("Bar_graph.html")
         show(p)
 
+    # WEATHER INFO MENU
+    # THIS WORKS ONLY FOR ROMANIAN CITIES (IF YOU NEED OTHER COUNTRIES YOU MUST CHANGE THE PATH)
 
+    def show_weather_info_window(self):
+        self.weather_info_selenium = QtWidgets.QDialog()
+        self.ui_weather = Ui_weather_info_selenium()
+        self.ui_weather.setupUi(self.weather_info_selenium)
+        self.weather_info_selenium.show()
+        self.ui_weather.save_data_btn.clicked.connect(self.get_weather_info_from_web)
 
+    def get_weather_info_from_web(self):
+        city = self.ui_weather.ui_location.text()
+        driver = webdriver.Chrome()
+        driver.maximize_window()
+        driver.get(f"https://www.accuweather.com/ro/search-locations?query={city}")
+        my_weather_list = []
 
+        try:
+            WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//p[contains(text(),'Consent')]")))
 
+            driver.find_element(By.XPATH, "//p[contains(text(),'Consent')]").click()
+        except ValueError:
+            print("Something went wrong here ...")
+        try:
+            WebDriverWait(driver, 15).until(
+                EC.element_to_be_clickable((By.LINK_TEXT, "DAILY")))
 
+            driver.find_element(By.LINK_TEXT, "DAILY").click()
 
+        except ValueError:
+            print("Something went wrong here ...")
+
+        try:
+
+            results = driver.find_elements(By.CLASS_NAME, "daily-forecast-card ")
+            for result in results:
+                day = result.find_element(By.XPATH, ".//span[@class='module-header dow date']").text
+                date = result.find_element(By.XPATH, ".//span[@class='module-header sub date']").text
+                high_temp = result.find_element(By.XPATH, ".//span[@class='high']").text
+                low_temp = result.find_element(By.XPATH, ".//span[@class='low']").text
+                print(day, date, high_temp, low_temp)
+                results_dict = {"City": city,
+                                "Day ": day,
+                                "Date": date,
+                                "Temp.Max": high_temp,
+                                "Low.Temp": low_temp}
+                my_weather_list.append(results_dict)
+        finally:
+            df = pd.DataFrame(my_weather_list)
+            new_df = pd.DataFrame(df)
+            model = PandasModel(new_df)
+            self.main_window_tableView.setModel(model)
+            driver.quit()
+            new_df.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
+            return new_df
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
@@ -522,7 +602,7 @@ class Ui_MainWindow:
 
         self.actionOpen.setText(_translate("MainWindow", "Open CSV file"))
 
-        self.actionSave.setText(_translate("MainWindow", "Save CSV file"))
+        # self.actionSave.setText(_translate("MainWindow", "Save CSV file"))
 
         self.actionShow_column_data.setText(_translate("MainWindow", "Show column data"))
 
@@ -548,7 +628,7 @@ class Ui_MainWindow:
 
         self.actionReplace_values_in_row.setText(_translate("MainWindow", "Replace values in row"))
 
-        self.actionTranspose_DF.setText(_translate("MainWindow", "Transpose DF"))
+        # self.actionTranspose_DF.setText(_translate("MainWindow", "Transpose DF"))
 
         self.actionShow_Data_Head.setText(_translate("MainWindow", "Show Data Head"))
 

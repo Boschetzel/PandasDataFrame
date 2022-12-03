@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from GUI.weather import Ui_weather_info_selenium
 import pandas as pd
 
 
@@ -51,3 +52,6 @@ class WeatherSearch:
     def get_data(self):
         df = pd.DataFrame(self.my_weather_list)
         return df
+
+if __name__=="__main__":
+    ws=WeatherSearch()

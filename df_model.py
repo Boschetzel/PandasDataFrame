@@ -2,6 +2,8 @@ import sys
 from PyQt5.QtWidgets import QApplication, QTableView
 from PyQt5.QtCore import QAbstractTableModel, Qt
 
+"""A Class which contains a model in order to show dataframe in a TableView from GUI"""
+
 
 class PandasModel(QAbstractTableModel):
     def __init__(self, data):

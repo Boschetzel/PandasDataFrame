@@ -23,7 +23,7 @@ class Ui_RegisterWindow:
         self.welcome_label = QtWidgets.QLabel(RegisterWindow)
         self.welcome_label.setGeometry(QtCore.QRect(180, 80, 391, 41))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(13)
         self.welcome_label.setFont(font)
         self.welcome_label.setObjectName("welcome_label")
         self.ui_username = QtWidgets.QLineEdit(RegisterWindow)
@@ -88,7 +88,7 @@ class Ui_RegisterWindow:
     def retranslateUi(self, RegisterWindow):
         _translate = QtCore.QCoreApplication.translate
         RegisterWindow.setWindowTitle(_translate("RegisterWindow", "Register User"))
-        self.welcome_label.setText(_translate("RegisterWindow", "Welcome to My Project App"))
+        self.welcome_label.setText(_translate("RegisterWindow", "Welcome to Pandas DataFrame Project"))
         self.username.setText(_translate("RegisterWindow", "Username"))
         self.password.setText(_translate("RegisterWindow", "Password"))
         self.email.setText(_translate("RegisterWindow", "Email"))
