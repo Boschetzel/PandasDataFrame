@@ -1,0 +1,9 @@
+include *.png
+include *.py
+include *.sqlite
+recursive-include __pycache__ *.pyc
+recursive-include _legacy_ *.csv
+recursive-include build *.py
+recursive-include dist *.whl
+recursive-include input_data *.csv
+recursive-include output_data *.csv

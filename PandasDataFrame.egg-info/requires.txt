@@ -1,0 +1,5 @@
+selenium
+bokeh
+requests
+matplotlib
+pyqt5

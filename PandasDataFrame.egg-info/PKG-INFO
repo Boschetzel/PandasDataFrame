@@ -1,3 +1,20 @@
+Metadata-Version: 2.1
+Name: PandasDataFrame
+Version: 1.0.2
+Summary: Pandas DataFrame Application
+Home-page: https://github.com/Boschetzel/PandasDataFrame.git
+Author: Boschetzel (Bogdan Fometescu)
+Author-email: <mbogdan.fometescu@gmail.com>
+Keywords: python,dataframe,pandas,selenium
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
 - [About](#about)
 - [Demo](#demo)
 - [Usage](#usage)
@@ -17,8 +34,6 @@ This GUI is not design to look good, just to make the project functional,as
 my intention with this project was to learn to code not to design GUI.
 
 Working on: cleaning and documenting the code
-
-Project is also published on Pypi under the name of : PandasDataFrame
 
 ## Demo
 
