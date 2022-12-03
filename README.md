@@ -46,7 +46,7 @@ PandasDataFrame comes with 3 sample datasets that will download on first use.
 
 
 ## Features
-
+- Register and Login a user based on Sqlite DB info
 - Open/Save *.csv files
 - DataFrame operations: Data Head
   - Show Column Data,
