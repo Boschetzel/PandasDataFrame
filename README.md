@@ -35,10 +35,7 @@ Project is also published on Pypi under the name of : PandasDataFrame
 
 
 ```python
-#import pandas as pd
-#import bokeh
-#import requests
-#import numpy
+#pip install PandasDataFrame==1.0.2
 
 ```
 
