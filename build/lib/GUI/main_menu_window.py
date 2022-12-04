@@ -65,15 +65,18 @@ class Ui_MainWindow:
         self.dict_col = {}
 
     def setupUi(self, MainWindow1):
+        # Main window object
         MainWindow1.setObjectName("MainWindow")
         MainWindow1.showMaximized()
         self.central_widget = QtWidgets.QWidget(MainWindow1)
         self.central_widget.setObjectName("centralwidget")
 
+        # TableView Object
         self.main_window_tableView = QtWidgets.QTableView(self.central_widget)
         self.main_window_tableView.setGeometry(QtCore.QRect(190, 120, 1650, 800))
         self.main_window_tableView.setObjectName("main_window_tableView")
 
+        # Title label
         self.label = QtWidgets.QLabel(self.central_widget)
         self.label.setGeometry(QtCore.QRect(490, 70, 221, 31))
         font = QtGui.QFont()
@@ -81,6 +84,7 @@ class Ui_MainWindow:
         self.label.setFont(font)
         self.label.setObjectName("label")
 
+        # MENU BAR ITEMS
         MainWindow1.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow1)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1172, 26))
@@ -99,64 +103,78 @@ class Ui_MainWindow:
         self.statusbar = QtWidgets.QStatusBar(MainWindow1)
         self.statusbar.setObjectName("statusbar")
 
-        # MENU OBJECTS
+        # MENU BAR ACTION OBJECTS
+        # Open CSV file
         MainWindow1.setStatusBar(self.statusbar)
         self.actionOpen = QtWidgets.QAction(MainWindow1)
         self.actionOpen.setObjectName("actionOpen")
-        # self.actionSave = QtWidgets.QAction(MainWindow1)
-        # self.actionSave.setObjectName("actionSave")
+
+        # Show data from a specific column
         self.actionShow_column_data = QtWidgets.QAction(MainWindow1)
         self.actionShow_column_data.setObjectName("actionShow_column_data")
+
+        # Show data from a specific row
         self.actionShow_row_data = QtWidgets.QAction(MainWindow1)
         self.actionShow_row_data.setObjectName("actionShow_row_data")
-        self.actionRename_column = QtWidgets.QAction(MainWindow1)
-        self.actionRename_column.setObjectName("actionRename_column")
-        self.actionDelete_colum = QtWidgets.QAction(MainWindow1)
-        self.actionDelete_colum.setObjectName("actionDelete_colum")
-        self.actionSearch = QtWidgets.QAction(MainWindow1)
-        self.actionSearch.setObjectName("actionSearch")
+
+        # Rename column
         self.actionRename_column_2 = QtWidgets.QAction(MainWindow1)
         self.actionRename_column_2.setObjectName("actionRename_column_2")
+
+        # Delete column
         self.actionDelete_column = QtWidgets.QAction(MainWindow1)
         self.actionDelete_column.setObjectName("actionDelete_column")
+
+        # Get weather info with Selenium
         self.actionSearch_Weather_Info = QtWidgets.QAction(MainWindow1)
         self.actionSearch_Weather_Info.setObjectName("actionSearch_Weather_Info")
-        self.actionFilter_data = QtWidgets.QAction(MainWindow1)
-        self.actionFilter_data.setObjectName("actionFilter_data")
-        self.actionSum_columns = QtWidgets.QAction(MainWindow1)
-        self.actionSum_columns.setObjectName("actionSum_columns")
+
+        # Select multiple columns
         self.actionSelect_multiple_columns = QtWidgets.QAction(MainWindow1)
         self.actionSelect_multiple_columns.setObjectName("actionSelect_multiple_columns")
+
+        # Replace values in a row
         self.actionReplace_values_in_row = QtWidgets.QAction(MainWindow1)
         self.actionReplace_values_in_row.setObjectName("actionReplace_values_in_row")
-        # self.actionTranspose_DF = QtWidgets.QAction(MainWindow1)
-        # self.actionTranspose_DF.setObjectName("actionTranspose_DF")
+
+        # Show  DF Head
         self.actionShow_Data_Head = QtWidgets.QAction(MainWindow1)
         self.actionShow_Data_Head.setObjectName("actionShow_Data_Head")
-        self.actionConvert_Str_to_Float = QtWidgets.QAction(MainWindow1)
-        self.actionConvert_Str_to_Float.setObjectName("actionConvert_Str_to_Float")
-        self.actionConvert_Str_to_Int = QtWidgets.QAction(MainWindow1)
-        self.actionConvert_Str_to_Int.setObjectName("actionConvert_Str_to_Int")
+
+        # Add new column
         self.actionAdd_new_column = QtWidgets.QAction(MainWindow1)
         self.actionAdd_new_column.setObjectName("actionAdd_new_column")
+
+        # Filter data
         self.actionFilter_data_2 = QtWidgets.QAction(MainWindow1)
         self.actionFilter_data_2.setObjectName("actionFilter_data_2")
+
+        # Sum up columns
         self.actionSum_up_columns = QtWidgets.QAction(MainWindow1)
         self.actionSum_up_columns.setObjectName("actionSum_up_columns")
+
+        # Split column data based on a separator
         self.actionSplit_column_data = QtWidgets.QAction(MainWindow1)
         self.actionSplit_column_data.setObjectName("actionSplit_column_data")
+
+        # Select multiple columns
         self.actionSelect_multiple_columns_2 = QtWidgets.QAction(MainWindow1)
         self.actionSelect_multiple_columns_2.setObjectName("actionSelect_multiple_columns_2")
+
+        # Replace all values in a row
         self.actionReplace_all_values_in_row = QtWidgets.QAction(MainWindow1)
         self.actionReplace_all_values_in_row.setObjectName("actionReplace_all_values_in_row")
+
+        # Matplotlib graphs
         self.actionMatPlotLib = QtWidgets.QAction(MainWindow1)
         self.actionMatPlotLib.setObjectName("actionMatPlotLib")
+
+        # Bokek graphs
         self.actionBokeh = QtWidgets.QAction(MainWindow1)
         self.actionBokeh.setObjectName("actionBokeh")
 
         # MENU ACTIONS
         self.menuFile.addAction(self.actionOpen)
-        # self.menuFile.addAction(self.actionSave)
         self.menuDataFrame.addAction(self.actionShow_Data_Head)
         self.menuDataFrame.addAction(self.actionShow_column_data)
         self.menuDataFrame.addAction(self.actionShow_row_data)
@@ -193,7 +211,6 @@ class Ui_MainWindow:
         self.actionMatPlotLib.triggered.connect(self.show_matplot_window)
         self.actionBokeh.triggered.connect(self.show_bokeh_plot_window)
         self.actionSearch_Weather_Info.triggered.connect(self.show_weather_info_window)
-        # self.actionSave.triggered.connect(lambda: self.save_df())
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -201,11 +218,13 @@ class Ui_MainWindow:
     # FILE MENU :
     # OPEN
 
+    # Opens the file dialog and returns the *.csv filepath
     @staticmethod
     def get_csv_filename():
         filename, _ = QFileDialog.getOpenFileName()
         return filename
 
+    # Converts the *.csv file to a Pandas DataFrame and returns the df
     def convert_csv_to_df(self):
         csv_filename = self.get_csv_filename()
         reader = pd.read_csv(csv_filename)
@@ -213,18 +232,22 @@ class Ui_MainWindow:
         self.df = df
         return df
 
+    # Creates a pandas model fo the df and return the model
     def pandas_model(self):
         df = self.convert_csv_to_df()
         model = PandasModel(df)
         return model
 
+    # Opens and show the df in the TableView
     def open_df(self):
         self.main_window_tableView.setModel(self.pandas_model())
 
+    # Cleans the df from nan values (can be used by devs for further developement of this project)
     def clean_nan_values(self):
         self.df.fillna(0)
         return self.df
 
+    # Saves the df from the weather info into a *.csv file, I know is harcoded:)
     def save_df(self):
         df_to_save = pd.DataFrame(self.df)
         df_to_save.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
@@ -235,43 +258,75 @@ class Ui_MainWindow:
     # SHOW ROW DATA
     # RENAME COLUMN
     # DELETE COLUMN
+
+    # Method to show the pyQt5 window for displaying a column data
     def show_column_data_window(self):
         self.df_operations_window = QtWidgets.QDialog()
         self.ui = Ui_df_operations_window()
         self.ui.setupUi(self.df_operations_window)
         self.df_operations_window.show()
-        self.ui.show_results_btn.clicked.connect(self.show_column_data_values)
+        self.ui.show_results_btn.clicked.connect(self.get_column_data_values)
 
-    def show_column_data_values(self):
+    # Method to get the column data from df
+    def get_column_data_values(self):
+        # Gets the column name from user input
         col_name = self.ui.ui_column_name.text()
+
+        # Rename the column
         df_col = self.df[col_name]
+
+        # Update de df
         df_col1 = pd.DataFrame(df_col)
+
+        # Make a pandas model
         model = PandasModel(df_col1)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
         return model
 
+    # Method to show the pyQt5 window for displaying a row data
     def show_row_data_window(self):
         self.df_operations_rows_wnd = QtWidgets.QDialog()
         self.ui_row = Ui_df_operations_window_rows()
         self.ui_row.setupUi(self.df_operations_rows_wnd)
         self.df_operations_rows_wnd.show()
-        self.ui_row.show_results_btn.clicked.connect(self.show_row_data_values)
+        self.ui_row.show_results_btn.clicked.connect(self.get_row_data_values)
 
-    def show_row_data_values(self):
+    # Method to get the row data from df
+    def get_row_data_values(self):
+        # Gets the column name from user input
         search_column = self.ui_row.ui_column_name.text()
         row_search = self.ui_row.ui_row_name.text()
+
+        # Check if user input is digit or str
         if row_search.isdigit():
+            # Gets the row data from the df(int)
             df_row = self.df.loc[self.df[search_column] == int(row_search)]
+
+            # Update de df with the changes
             df_row_save = pd.DataFrame(df_row)
+
+            # Make a pandas model
             model = PandasModel(df_row_save)
+
+            # Display the updated df in the TableView
             self.main_window_tableView.setModel(model)
         else:
+            # Gets the row data from the df(str)
             df_row = self.df.loc[self.df[search_column] == row_search]
+
+            # Update de df with the changes
             df_row_save = pd.DataFrame(df_row)
+
+            # Make a pandas model
             model = PandasModel(df_row_save)
+
+            # Display the updated df in the TableView
             self.main_window_tableView.setModel(model)
         return model
 
+    # Method to show the pyQt5 window to rename a column
     def show_rename_window(self):
         self.rename_col = QtWidgets.QDialog()
         self.ui_rename = Ui_rename_column()
@@ -279,20 +334,40 @@ class Ui_MainWindow:
         self.rename_col.show()
         self.ui_rename.apply_btn.clicked.connect(self.rename_column)
 
+    # Method to rename a column
     def rename_column(self):
+        # Creates an empty hash( dict)
         self.dict_col = {}
+
+        # Gets the data from the user input(old col. name, new col name)
         col_old_name = self.ui_rename.ui_old_name.text()
         col_new_name = self.ui_rename.ui_new_name.text()
+
+        # Renames the column
         self.dict_col[col_old_name] = col_new_name
         temp = self.df.rename(columns=self.dict_col, inplace=False)
+
+        # Update de df with the changes
         new_df = pd.DataFrame(temp)
+
+        # Make a pandas model
         model = PandasModel(new_df)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
 
+    # Method to display the df head in TableView
     def show_df_head(self):
+        # Function to get the df head
         df = self.df.head()
+
+        # Update de df with the changes
         df_head = pd.DataFrame(df)
+
+        # Make a pandas model
         model = PandasModel(df_head)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
 
     def show_delete_col_view(self):
@@ -316,6 +391,7 @@ class Ui_MainWindow:
     # SPLIT COLUMNS
     # SELECT MULTIPLE COLUMNS
 
+    # Method to show the pyQt5 window to add a new column
     def show_add_new_column(self):
         self.add_new_column = QtWidgets.QDialog()
         self.ui_add_col = Ui_add_new_column()
@@ -323,16 +399,29 @@ class Ui_MainWindow:
         self.add_new_column.show()
         self.ui_add_col.add_col_btn.clicked.connect(self.add_column)
 
+    # Method to add a new column to the df
     def add_column(self):
+        # Gets the data from the user input(position of new column, column name, fill data)
         ui_col_loc = int(self.ui_add_col.ui_col_position.text())
         ui_new_col_name = self.ui_add_col.ui_new_col_name.text()
         ui_content = self.ui_add_col.ui_data_fill.text()
+
+        # Inserts the new column into the df
         self.df.insert(ui_col_loc, ui_new_col_name, ui_content)
+
+        # Update de df with the changes
         df = pd.DataFrame(self.df)
+
+        # Make a pandas model
         model = PandasModel(df)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
+
+        # Can be done like this also :
         # self.df[ui_new_col_name] = pd.DataFrame([ui_content for _ in range(len(self.df.index))])
 
+    # Method to show the pyQt5 window to add a filter a column data
     def show_filter_col_window(self):
         self.filter_col = QtWidgets.QDialog()
         self.ui_filter = Ui_filter_col_data()
@@ -340,18 +429,31 @@ class Ui_MainWindow:
         self.filter_col.show()
         self.ui_filter.filter_btn.clicked.connect(self.filter_col_data)
 
+    # Method to filter a column data based on a min, max value entered by user
     def filter_col_data(self):
+        # Fill the nan with "0"
         df = self.df.fillna(0)
         self.df = df
+
+        # Gets the user input(col. name, min val, max val)
         col_name = self.ui_filter.ui_col_name.text()
         ui_min_val = int(self.ui_filter.ui_min_value.text())
         ui_max_val = int(self.ui_filter.ui_max_value.text())
+
+        # Filter the data based on the user input
         self.df[col_name] = self.df[col_name].astype(float)
-        temp3 = self.df[(self.df[col_name] >= ui_min_val) & (self.df[col_name] <= ui_max_val)]
-        df = pd.DataFrame(temp3)
+        temp = self.df[(self.df[col_name] >= ui_min_val) & (self.df[col_name] <= ui_max_val)]
+
+        # Update de df with the changes
+        df = pd.DataFrame(temp)
+
+        # Make a pandas model
         model = PandasModel(df)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
 
+    # Method to show the pyQt5 window to sum up columns
     def show_sum_up_column_window(self):
         self.sum_columns = QtWidgets.QDialog()
         self.ui_sum_col = Ui_sum_columns()
@@ -359,21 +461,40 @@ class Ui_MainWindow:
         self.sum_columns.show()
         self.ui_sum_col.sum_col_btn.clicked.connect(self.sum_columns_up)
 
+    # Method to sum up two columns
     def sum_columns_up(self):
+        # Creates an empty list
         sum_col_lst = []
+
+        # Fill nan values with "0"
         self.df.fillna(0)
+
+        # Gets the user input(new column position and name, first col. to be added, second col. to be added)
         ui_col_loc = int(self.ui_sum_col.col_new_position.text())
         col_to_add = str(self.ui_sum_col.new_col_name.text())
         col_1 = str(self.ui_sum_col.first_col_to_sum.text())
         col_2 = str(self.ui_sum_col.second_col_to_sum.text())
+
+        # Inserts new column
         self.df.insert(ui_col_loc, col_to_add, False)
+
+        # Appends data to the list
         sum_col_lst.append(col_1)
         sum_col_lst.append(col_2)
+
+        # Sum up the two columns
         df = self.df[col_to_add] = self.df[sum_col_lst].sum(axis=1)
+
+        # Update de df with the changes
         df_new = pd.DataFrame(df)
+
+        # Make a pandas model
         model = PandasModel(df_new)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
 
+    # Method to show the pyQt5 window to split column data based on a separator
     def show_split_col_window(self):
         self.df_split = QtWidgets.QDialog()
         self.ui_split = Ui_split_col_data()
@@ -381,14 +502,25 @@ class Ui_MainWindow:
         self.df_split.show()
         self.ui_split.split_btn.clicked.connect(self.split_col_and_expand)
 
+    # Method to split data on a column based on a separator
     def split_col_and_expand(self):
+        # Gets the user input(name of column, separator)
         col_name = str(self.ui_split.ui_column_name.text())
         separator = str(self.ui_split.ui_separator.text())
+
+        # Splits the data
         temp = self.df[col_name].str.split(separator, expand=True)
+
+        # Update de df with the changes
         df_split = pd.DataFrame(temp)
+
+        # Make a pandas model
         model = PandasModel(df_split)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
 
+    # Method to show the pyQt5 window to select multiple columns
     def show_select_multiple_col_window(self):
         self.df_sel_columns = QtWidgets.QDialog()
         self.ui_select = Ui_df_select_multiple_col()
@@ -396,14 +528,25 @@ class Ui_MainWindow:
         self.df_sel_columns.show()
         self.ui_select.select_columns_btn.clicked.connect(self.select_multiple_col)
 
+    # Method to select multiple columns
     def select_multiple_col(self):
+        # Gets the user input(name of first column, name of last column)
         name_first_col = str(self.ui_select.ui_first_col_name.text())
         name_last_col = str(self.ui_select.ui_last_col_name.text())
+
+        # Selects the range of columns
         temp = self.df.loc[:, name_first_col:name_last_col]
+
+        # Update de df with the changes
         new_df = pd.DataFrame(temp)
+
+        # Make a pandas model
         model = PandasModel(new_df)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
 
+    # Method to show the pyQt5 window to add new row
     def show_add_new_row_window(self):
         self.df_replace_values = QtWidgets.QDialog()
         self.ui_replace = Ui_df_add_new_rows()
@@ -411,11 +554,19 @@ class Ui_MainWindow:
         self.df_replace_values.show()
         self.ui_replace.replace_btn.clicked.connect(self.add_new_row)
 
+    # Method to add new row
     def add_new_row(self):
+        # Gets the user input(row name, value to fill row)
         num_row = self.ui_replace.ui_row_name.text()
         new_value = self.ui_replace.ui_fill_row_value.text()
+
+        # Adds new row and values
         self.df.loc[num_row] = new_value
+
+        # Make a pandas model
         model = PandasModel(self.df)
+
+        # Display the updated df in the TableView
         self.main_window_tableView.setModel(model)
 
     # DATA VISUALIZATION MENU
@@ -423,6 +574,8 @@ class Ui_MainWindow:
     # BOKEH
 
     # MATPLOTLIB GRAPHS
+
+    # Method to show the pyQt5 window to plot with Matplotlib
     def show_matplot_window(self):
         self.graph_matplotlib = QtWidgets.QDialog()
         self.ui_graph = Ui_graph_matplotlib()
@@ -434,57 +587,99 @@ class Ui_MainWindow:
         self.ui_graph.stem_btn.clicked.connect(self.plot_stem_graph)
         self.ui_graph.step_btn.clicked.connect(self.plot_step_graph)
 
+    # Method to plot data with Matplotlib(simple plot)
     def plot_simple_graph(self):
         plt.style.use('_mpl-gallery')
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_graph.ui_X_column.text()
         y_col = self.ui_graph.ui_Y_column.text()
+
+        # Selects the data from columns
         x = self.df[x_col][1:]
         y = self.df[y_col][1:]
+
+        # Plots the data
         fig, ax = plt.subplots()
         ax.plot(x, y, linewidth=2.0)
+
+        # Show the plot
         plt.show()
 
+    # Method to plot data with Matplotlib(scatter plot)
     def plot_scatter_graph(self):
         plt.style.use('_mpl-gallery')
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_graph.ui_X_column.text()
         y_col = self.ui_graph.ui_Y_column.text()
+
+        # Selects the data from columns
         x = self.df[x_col][1:]
         y = self.df[y_col][1:]
+
+        # Plots the data
         fig, ax = plt.subplots()
         ax.scatter(x, y)
+
+        # Show the plot
         plt.show()
 
+    # Method to plot data with Matplotlib(bar plot)
     def plot_bar_graph(self):
         plt.style.use('_mpl-gallery')
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_graph.ui_X_column.text()
         y_col = self.ui_graph.ui_Y_column.text()
+
+        # Selects the data from columns
         x = self.df[x_col][1:]
         y = self.df[y_col][1:]
+
+        # Plots the data
         fig, ax = plt.subplots()
         ax.bar(x, y, width=1, edgecolor="white", linewidth=0.7)
+
+        # Show the plot
         plt.show()
 
+    # Method to plot data with Matplotlib(stem plot)
     def plot_stem_graph(self):
         plt.style.use('_mpl-gallery')
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_graph.ui_X_column.text()
         y_col = self.ui_graph.ui_Y_column.text()
+
+        # Selects the data from columns
         x = self.df[x_col][1:]
         y = self.df[y_col][1:]
+
+        # Plots the data
         fig, ax = plt.subplots()
         ax.stem(x, y)
+
+        # Show the plot
         plt.show()
 
+    # Method to plot data with Matplotlib(step plot)
     def plot_step_graph(self):
         plt.style.use('_mpl-gallery')
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_graph.ui_X_column.text()
         y_col = self.ui_graph.ui_Y_column.text()
+
+        # Selects the data from columns
         x = self.df[x_col][1:]
         y = self.df[y_col][1:]
+
+        # Plots the data
         fig, ax = plt.subplots()
         ax.step(x, y, linewidth=2.5)
+
+        # Show the plot
         plt.show()
 
     # BOKEH GRAPHS
+
+    # Method to show the pyQt5 window to plot with Bokeh
     def show_bokeh_plot_window(self):
         self.graph_with_bokeh = QtWidgets.QDialog()
         self.ui_bokeh = Ui_graph_bokeh()
@@ -495,49 +690,90 @@ class Ui_MainWindow:
         self.ui_bokeh.bar_btn.clicked.connect(self.plot_bokeh_bar)
         self.ui_bokeh.step_btn.clicked.connect(self.plot_bokeh_step)
 
+    # Method to plot data with Matplotlib(scatter plot)
     def plot_bokeh_scatter(self):
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_bokeh.ui_X_column.text()
         x = self.df[x_col][1:]
         y_col = self.ui_bokeh.ui_Y_column.text()
+
+        # Selects the data from columns
         y = self.df[y_col][1:]
+
+        # Plots the data
         p = figure(title="Simple Scatter graph", x_axis_label=x_col, y_axis_label=y_col)
         p.scatter(x, y, line_width=2)
+
+        # Saves the plot in a *.html format
         output_file("Scatter_graph.html")
+
+        # Show the plot
         show(p)
 
+    # Method to plot data with Matplotlib(line  plot)
     def plot_bokeh_line(self):
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_bokeh.ui_X_column.text()
         x = self.df[x_col][1:]
         y_col = self.ui_bokeh.ui_Y_column.text()
+
+        # Selects the data from columns
         y = self.df[y_col][1:]
+
+        # Plots the data
         p = figure(title="Simple Line graph", x_axis_label=x_col, y_axis_label=y_col)
         p.line(x, y, line_width=2)
+
+        # Saves the plot in a *.html format
         output_file("Line_graph.html")
+
+        # Show the plot
         show(p)
 
+    # Method to plot data with Matplotlib(step  plot)
     def plot_bokeh_step(self):
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_bokeh.ui_X_column.text()
         x = self.df[x_col][1:]
         y_col = self.ui_bokeh.ui_Y_column.text()
+
+        # Selects the data from columns
         y = self.df[y_col][1:]
+
+        # Plots the data
         p = figure(title="Simple Step graph", x_axis_label=x_col, y_axis_label=y_col)
         p.step(x, y, line_width=2, mode="center")
+
+        # Saves the plot in a *.html format
         output_file("Step_graph.html")
+
+        # Show the plot
         show(p)
 
+    # Method to plot data with Matplotlib(bar plot)
     def plot_bokeh_bar(self):
+        # Gets the user input for the two columns to be represented
         x_col = self.ui_bokeh.ui_X_column.text()
         x = self.df[x_col][1:]
         y_col = self.ui_bokeh.ui_Y_column.text()
+
+        # Selects the data from columns
         y = self.df[y_col][1:]
+
+        # Plots the data
         p = figure(title="Simple Bar graph", x_axis_label=x_col, y_axis_label=y_col)
         p.vbar(x, top=y, width=0.5, bottom=0, color="firebrick")
+
+        # Saves the plot in a *.html format
         output_file("Bar_graph.html")
+
+        # Show the plot
         show(p)
 
     # WEATHER INFO MENU
     # THIS WORKS ONLY FOR ROMANIAN CITIES (IF YOU NEED OTHER COUNTRIES YOU MUST CHANGE THE PATH)
 
+    # Method to show the pyQt5 window to search for weather info with Selenium
     def show_weather_info_window(self):
         self.weather_info_selenium = QtWidgets.QDialog()
         self.ui_weather = Ui_weather_info_selenium()
@@ -545,13 +781,24 @@ class Ui_MainWindow:
         self.weather_info_selenium.show()
         self.ui_weather.save_data_btn.clicked.connect(self.get_weather_info_from_web)
 
+    # Method to get the weather info and save it into a *.csv file
     def get_weather_info_from_web(self):
+        # Gets the user input(location)
         city = self.ui_weather.ui_location.text()
+
+        # Set up webdriver
         driver = webdriver.Chrome()
+
+        # Maximize window
         driver.maximize_window()
+
+        # Gets the url path
         driver.get(f"https://www.accuweather.com/ro/search-locations?query={city}")
+
+        # Creates an empty list to store results
         my_weather_list = []
 
+        # Gets the element and click "Consent" pop-up window
         try:
             WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, "//p[contains(text(),'Consent')]")))
@@ -559,6 +806,8 @@ class Ui_MainWindow:
             driver.find_element(By.XPATH, "//p[contains(text(),'Consent')]").click()
         except ValueError:
             print("Something went wrong here ...")
+
+        # Gets the element and click the "DAILY" link
         try:
             WebDriverWait(driver, 15).until(
                 EC.element_to_be_clickable((By.LINK_TEXT, "DAILY")))
@@ -568,6 +817,7 @@ class Ui_MainWindow:
         except ValueError:
             print("Something went wrong here ...")
 
+        #Gets the element and store the data into the list
         try:
 
             results = driver.find_elements(By.CLASS_NAME, "daily-forecast-card ")
@@ -576,19 +826,32 @@ class Ui_MainWindow:
                 date = result.find_element(By.XPATH, ".//span[@class='module-header sub date']").text
                 high_temp = result.find_element(By.XPATH, ".//span[@class='high']").text
                 low_temp = result.find_element(By.XPATH, ".//span[@class='low']").text
-                print(day, date, high_temp, low_temp)
+                print(day, date, high_temp, low_temp) #this is for testing purposes
+
+                #Makes a dict with the gathered results
                 results_dict = {"City": city,
                                 "Day ": day,
                                 "Date": date,
                                 "Temp.Max": high_temp,
                                 "Low.Temp": low_temp}
+
+                #Appends the data to the list
                 my_weather_list.append(results_dict)
         finally:
+            #Creates a df from the results
             df = pd.DataFrame(my_weather_list)
             new_df = pd.DataFrame(df)
+
+            #Makes a pandas model
             model = PandasModel(new_df)
+
+            #Display the results in the TableView
             self.main_window_tableView.setModel(model)
+
+            #Close the driver
             driver.quit()
+
+            #Save the results into a *.csv file
             new_df.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
             return new_df
 
@@ -611,17 +874,9 @@ class Ui_MainWindow:
 
         self.actionOpen.setText(_translate("MainWindow", "Open CSV file"))
 
-        # self.actionSave.setText(_translate("MainWindow", "Save CSV file"))
-
         self.actionShow_column_data.setText(_translate("MainWindow", "Show column data"))
 
         self.actionShow_row_data.setText(_translate("MainWindow", "Show row data"))
-
-        self.actionRename_column.setText(_translate("MainWindow", "Rename column"))
-
-        self.actionDelete_colum.setText(_translate("MainWindow", "Delete colum"))
-
-        self.actionSearch.setText(_translate("MainWindow", "Search "))
 
         self.actionRename_column_2.setText(_translate("MainWindow", "Rename column"))
 
@@ -629,21 +884,11 @@ class Ui_MainWindow:
 
         self.actionSearch_Weather_Info.setText(_translate("MainWindow", "Search Weather Info"))
 
-        self.actionFilter_data.setText(_translate("MainWindow", "Filter data"))
-
-        self.actionSum_columns.setText(_translate("MainWindow", "Sum columns"))
-
         self.actionSelect_multiple_columns.setText(_translate("MainWindow", "Select multiple columns"))
 
         self.actionReplace_values_in_row.setText(_translate("MainWindow", "Replace values in row"))
 
-        # self.actionTranspose_DF.setText(_translate("MainWindow", "Transpose DF"))
-
         self.actionShow_Data_Head.setText(_translate("MainWindow", "Show Data Head"))
-
-        self.actionConvert_Str_to_Float.setText(_translate("MainWindow", "Convert Str to Float"))
-
-        self.actionConvert_Str_to_Int.setText(_translate("MainWindow", "Convert Str to Int"))
 
         self.actionAdd_new_column.setText(_translate("MainWindow", "Add new column"))
 
