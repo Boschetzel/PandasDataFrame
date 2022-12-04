@@ -1,6 +1,5 @@
 import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox
 from GUI.account_created import Ui_Form_Acc
 from GUI.login_window import Ui_Form
 from GUI.login_succes import Ui_Log_in_success
@@ -42,6 +41,8 @@ The code for the GUI is generated with QT Designer
 class UiRegisterWindow(ConnectDB):
     def __init__(self):
         super(UiRegisterWindow, self).__init__()
+        self.Username_taken = QtWidgets.QDialog()
+        self.ui_taken = Ui_Username_taken()
         self.welcome_label = QtWidgets.QLabel(RegisterWindow)
         self.ui_username = QtWidgets.QLineEdit(RegisterWindow)
         self.username = QtWidgets.QLabel(RegisterWindow)
@@ -72,6 +73,7 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(18)
         self.welcome_label.setFont(font)
         self.welcome_label.setObjectName("welcome_label")
+
         # Username input LineEdit object
         self.ui_username = QtWidgets.QLineEdit(RegisterWindow1)
         self.ui_username.setGeometry(QtCore.QRect(300, 180, 251, 31))
@@ -79,6 +81,7 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(10)
         self.ui_username.setFont(font)
         self.ui_username.setObjectName("ui_username")
+
         # Username label
         self.username = QtWidgets.QLabel(RegisterWindow1)
         self.username.setGeometry(QtCore.QRect(180, 180, 101, 16))
@@ -86,6 +89,7 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(12)
         self.username.setFont(font)
         self.username.setObjectName("username")
+
         # Password label
         self.password = QtWidgets.QLabel(RegisterWindow1)
         self.password.setGeometry(QtCore.QRect(180, 230, 101, 16))
@@ -93,6 +97,7 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(12)
         self.password.setFont(font)
         self.password.setObjectName("password")
+
         # Email label
         self.email = QtWidgets.QLabel(RegisterWindow1)
         self.email.setGeometry(QtCore.QRect(180, 280, 101, 16))
@@ -100,6 +105,7 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(12)
         self.email.setFont(font)
         self.email.setObjectName("email")
+
         # Password input LineEdit object
         self.ui_password = QtWidgets.QLineEdit(RegisterWindow1)
         self.ui_password.setGeometry(QtCore.QRect(300, 230, 251, 31))
@@ -108,6 +114,7 @@ class UiRegisterWindow(ConnectDB):
         self.ui_password.setFont(font)
         self.ui_password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.ui_password.setObjectName("ui_password")
+
         # Email input LineEdit object
         self.ui_email = QtWidgets.QLineEdit(RegisterWindow1)
         self.ui_email.setGeometry(QtCore.QRect(300, 280, 251, 31))
@@ -115,6 +122,7 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(10)
         self.ui_email.setFont(font)
         self.ui_email.setObjectName("ui_email")
+
         # Register button object
         self.registerBtn = QtWidgets.QPushButton(RegisterWindow1)
         self.registerBtn.setGeometry(QtCore.QRect(370, 340, 93, 33))
@@ -123,6 +131,7 @@ class UiRegisterWindow(ConnectDB):
         self.registerBtn.setFont(font)
         self.registerBtn.setObjectName("registerBtn")
         self.registerBtn.clicked.connect(self.register_user)
+
         # Already have and account label
         self.label_2 = QtWidgets.QLabel(RegisterWindow1)
         self.label_2.setGeometry(QtCore.QRect(130, 430, 241, 41))
@@ -130,6 +139,7 @@ class UiRegisterWindow(ConnectDB):
         font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+
         # Login button object
         self.loginBtn1 = QtWidgets.QPushButton(RegisterWindow1)
         self.loginBtn1.setGeometry(QtCore.QRect(370, 440, 101, 31))
@@ -151,22 +161,25 @@ class UiRegisterWindow(ConnectDB):
             username = self.ui_username.text()
             password = self.ui_password.text()
             email = self.ui_email.text()
+
             # Execute the sqlite command to check if username already exists in database
             res = self.cursor.execute(f"SELECT User FROM test")
             user_list = res.fetchall()
+
             # Cleaning the list from the fetchall function
             temp_list = [item for item in map(list, user_list)]
             final_list = sum(temp_list, [])
+
             # Check if username is in list
             while username in final_list:
                 self.show_username_already_in_use()
                 break
-
             # Add the user input info to the list
             else:
                 temp_list_info.append(username)
                 temp_list_info.append(password)
                 temp_list_info.append(email)
+
                 # Show the main window (GUI) for  PandasDataFrame
                 self.show_account_created_window()
                 self.show_main_window()
@@ -189,12 +202,15 @@ class UiRegisterWindow(ConnectDB):
         # Gets the user input for username and password
         username = self.ui2.ui_username.text()
         password = self.ui2.ui_password.text()
+
         # Execute the sqlite command to select the users from DB
         res = self.cursor.execute(f"SELECT User,Password FROM {self.filename}")
         users_list = res.fetchall()
+
         # Cleaning the list from the fetchall function
         temp_list = [item for item in map(list, users_list)]
         final_list = sum(temp_list, [])
+
         # Check if username and password are in the list
         while True:
             if username and password in final_list:
@@ -206,7 +222,7 @@ class UiRegisterWindow(ConnectDB):
                 self.show_login_failed_window()
                 break
 
-    # Method to show the login succes window
+    # Method to show the login success window
     def show_login_success_window(self):
         self.Log_in_success = QtWidgets.QWidget()
         self.ui = Ui_Log_in_success()
@@ -247,10 +263,6 @@ class UiRegisterWindow(ConnectDB):
         self.ui_taken = Ui_Username_taken()
         self.ui_taken.setupUi(self.Username_taken)
         self.Username_taken.show()
-
-
-
-
 
     # PYGT5 method -auto generated by Qt Designer
     def retranslate_ui(self, RegisterWindow1):

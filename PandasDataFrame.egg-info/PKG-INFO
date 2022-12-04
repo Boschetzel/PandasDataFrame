@@ -35,6 +35,8 @@ my intention with this project was to learn to code not to design GUI.
 
 Working on: cleaning and documenting the code
 
+Project is also published on Pypi under the name of : PandasDataFrame
+
 ## Demo
 
 ![img.png](img.png)
@@ -50,10 +52,7 @@ Working on: cleaning and documenting the code
 
 
 ```python
-#import pandas as pd
-#import bokeh
-#import requests
-#import numpy
+#pip install PandasDataFrame==1.0.2
 
 ```
 

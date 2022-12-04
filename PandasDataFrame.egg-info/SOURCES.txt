@@ -25,6 +25,7 @@ GUI/show_column_data.py
 GUI/show_row_data.py
 GUI/split_col_data.py
 GUI/sum_columns.py
+GUI/username_taken.py
 GUI/weather.py
 PandasDataFrame.egg-info/PKG-INFO
 PandasDataFrame.egg-info/SOURCES.txt
