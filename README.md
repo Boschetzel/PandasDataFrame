@@ -17,6 +17,7 @@ This GUI is not design to look good, just to make the project functional,as
 my intention with this project was to learn to code not to design GUI.
 
 Working on: cleaning and documenting the code
+Note: the ML part is not yet finished as I still am on a learning path with Python, when I am ready I will commit it.
 
 Project is also published on Pypi under the name of : PandasDataFrame
 
@@ -28,7 +29,7 @@ Project is also published on Pypi under the name of : PandasDataFrame
 
 ## Usage
   Main usage of this Project:
-- Get data from different sources (local computer,API,Selenium)
+- Get data from different sources (local computer or use Selenium)
 - Perform different actions on the DataFrame
 - Analyze the data
 - Visualize data (plotting)
@@ -39,7 +40,7 @@ Project is also published on Pypi under the name of : PandasDataFrame
 
 ```
 
-PandasDataFrame comes with 3 sample datasets that will download on first use.
+PandasDataFrame comes with 2 sample datasets that will download on first use.
 - Covid DataSet
 - FIFA Dataset
 
@@ -66,6 +67,6 @@ PandasDataFrame comes with 3 sample datasets that will download on first use.
 
 **Issues, feedback and pull requests are welcome.**
 
-This project is still in version 1.0.1 and subject to further changes.
+This project is still in version 1.0.2 and subject to further changes.
 
 If you like this project remember to leave a ⭐! 
