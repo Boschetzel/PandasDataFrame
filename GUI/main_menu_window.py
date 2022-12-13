@@ -789,7 +789,6 @@ class Ui_MainWindow:
         # Set up webdriver
         driver = webdriver.Chrome()
 
-        # Maximize window
         driver.maximize_window()
 
         # Gets the url path
@@ -817,7 +816,7 @@ class Ui_MainWindow:
         except ValueError:
             print("Something went wrong here ...")
 
-        #Gets the element and store the data into the list
+        # Gets the element and store the data into the list
         try:
 
             results = driver.find_elements(By.CLASS_NAME, "daily-forecast-card ")
@@ -826,32 +825,32 @@ class Ui_MainWindow:
                 date = result.find_element(By.XPATH, ".//span[@class='module-header sub date']").text
                 high_temp = result.find_element(By.XPATH, ".//span[@class='high']").text
                 low_temp = result.find_element(By.XPATH, ".//span[@class='low']").text
-                print(day, date, high_temp, low_temp) #this is for testing purposes
+                print(day, date, high_temp, low_temp)  # this is for testing purposes
 
-                #Makes a dict with the gathered results
+                # Makes a dict with the gathered results
                 results_dict = {"City": city,
                                 "Day ": day,
                                 "Date": date,
                                 "Temp.Max": high_temp,
                                 "Low.Temp": low_temp}
 
-                #Appends the data to the list
+                # Appends the data to the list
                 my_weather_list.append(results_dict)
         finally:
-            #Creates a df from the results
+            # Creates a df from the results
             df = pd.DataFrame(my_weather_list)
             new_df = pd.DataFrame(df)
 
-            #Makes a pandas model
+            # Makes a pandas model
             model = PandasModel(new_df)
 
-            #Display the results in the TableView
+            # Display the results in the TableView
             self.main_window_tableView.setModel(model)
 
-            #Close the driver
+            # Close the driver
             driver.quit()
 
-            #Save the results into a *.csv file
+            # Save the results into a *.csv file
             new_df.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
             return new_df
 

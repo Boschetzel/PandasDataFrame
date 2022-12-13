@@ -3,7 +3,7 @@ MANIFEST.in
 README.md
 df_model.py
 img.png
-menu_GUI.py
+main.py
 setup.py
 test.sqlite
 GUI/__init__.py
