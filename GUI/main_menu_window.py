@@ -242,12 +242,12 @@ class Ui_MainWindow:
     def open_df(self):
         self.main_window_tableView.setModel(self.pandas_model())
 
-    # Cleans the df from nan values (can be used by devs for further developement of this project)
+    # Cleans the df from nan values (can be used by devs for further development of this project)
     def clean_nan_values(self):
         self.df.fillna(0)
         return self.df
 
-    # Saves the df from the weather info into a *.csv file, I know is harcoded:)
+    # Saves the df from the weather info into a *.csv file, I know is hardcoded:)
     def save_df(self):
         df_to_save = pd.DataFrame(self.df)
         df_to_save.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
