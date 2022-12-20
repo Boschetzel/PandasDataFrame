@@ -18,7 +18,7 @@ My goal was to put in practice the new things I learned, by coding.
 Project is also **published on Pypi** under the name of : PandasDataFrame
 
 NB: **the ML part  is not yet finished** as **I still am on a learning path with Python**.
-
+Quick note: weather info option works only for Romania cities.
 
 ## Demo
 
