@@ -6,8 +6,8 @@
 
 ## About
 
-A Python application which allows users to **open a *csv file** 
- ,**visualize** , **manipulate** and **plot  data** according to their needs using **"Pandas"**.
+A Python application which allows users to open a csv file
+ , **visualize**, **manipulate** and **plot  data** according to their needs using **"Pandas"**.
 
 I used Pyqt5 to create a GUI for this project **after** the back-end code was written, 
 **which was a mistake** from my part, I learned this the "hard way".
