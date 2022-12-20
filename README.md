@@ -6,20 +6,19 @@
 
 ## About
 
-PandasDataFrame is a simple Python project for viewing,
-analyzing  and  plotting Pandas DataFrames.
+A Python application which allows users to **open a *csv file** 
+ ,**visualize** , **manipulate** and **plot  data** according to their needs using **"Pandas"**.
 
-Final project will make possible getting data
-from a web API, csv file or web scrapping.
+I used Pyqt5 to create a GUI for this project **after** the back-end code was written, 
+**which was a mistake** from my part, I learned this the "hard way".
 
-I used Pyqt5 to create a GUI for this project with some basic functionalities.
-This GUI is not design to look good, just to make the project functional,as
-my intention with this project was to learn to code not to design GUI.
+Keep in mind that the  GUI **is not design to look good.**
+My goal was to put in practice the new things I learned, by coding.
 
-Working on: cleaning and documenting the code
-Note: the ML part is not yet finished as I still am on a learning path with Python, when I am ready I will commit it.
+Project is also **published on Pypi** under the name of : PandasDataFrame
 
-Project is also published on Pypi under the name of : PandasDataFrame
+NB: **the ML part  is not yet finished** as **I still am on a learning path with Python**.
+
 
 ## Demo
 
@@ -28,11 +27,11 @@ Project is also published on Pypi under the name of : PandasDataFrame
 
 
 ## Usage
-  Main usage of this Project:
-- Get data from different sources (local computer or use Selenium)
-- Perform different actions on the DataFrame
-- Analyze the data
-- Visualize data (plotting)
+  Main usage of this Application:
+- **Get data** from different sources (local computer or use Selenium)
+- **Perform** different actions on the DataFrame
+- **Analyze** the data
+- **Visualize** data (plotting)
 
 
 ```python
@@ -40,25 +39,26 @@ Project is also published on Pypi under the name of : PandasDataFrame
 
 ```
 
-PandasDataFrame comes with 2 sample datasets that will download on first use.
+PandasDataFrame comes with **2 sample datasets** :
 - Covid DataSet
 - FIFA Dataset
 
 
 ## Features
-- Register and Login a user based on Sqlite DB info
-- Open/Save *.csv files
-- DataFrame operations: Data Head
+- **Register and Login** a user based on Sqlite DB info
+- **Open**/Save *.csv files (from Selenium)
+- DataFrame **operations**: 
+  - Data Head
   - Show Column Data,
   - Show Row Data,
   - Rename Column, 
   - Delete Column
--DataFrame analysis:
+-DataFrame a**nalysis**:
   - Add new column
   - Filter column
   - Split columns (if data have separators)
   - Select a range of columns 
-- DataFrame visualization
+- DataFrame **visualization**
   - Matplotlib 
   - Bokeh
 - Get data (*.csv) using Selenium
@@ -67,6 +67,6 @@ PandasDataFrame comes with 2 sample datasets that will download on first use.
 
 **Issues, feedback and pull requests are welcome.**
 
-This project is still in version 1.0.2 and subject to further changes.
+This project is still in version 1.0.3 and subject to further changes.
 
 If you like this project remember to leave a ⭐! 

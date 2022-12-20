@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 
-VERSION = '1.0.2'
+VERSION = '1.0.3'
 DESCRIPTION = 'Pandas DataFrame Application'
 LONG_DESCRIPTION = 'A package that allows to open,view,modify and plot pandas DataFrames.'
 
