@@ -1,10 +1,11 @@
+import os
 import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GUI.account_created import Ui_Form_Acc
 from GUI.login_window import Ui_Form
 from GUI.login_succes import Ui_Log_in_success
 from GUI.login_failed import Ui_log_in_failed
-from GUI.main_menu_window import Ui_MainWindow
+from GUI.main_menu_window import GuiMainWindow
 from GUI.username_taken import Ui_Username_taken
 
 """A very basic Class to connect and create a table in sqlite database """
@@ -12,7 +13,8 @@ from GUI.username_taken import Ui_Username_taken
 
 class ConnectDB:
     def __init__(self):
-        self.db = sqlite3.connect("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\test.sqlite")
+        path = os.getcwd()
+        self.db = sqlite3.connect(f"{path}\\test.sqlite")
         self.cursor = self.db.cursor()
         self.column_user = "User"
         self.column_pass = "Password"
@@ -56,7 +58,7 @@ class UiRegisterWindow(ConnectDB):
         self.Form = QtWidgets.QWidget()
         self.ui = Ui_Form_Acc()
         self.ui2 = Ui_Form()
-        self.ui3 = Ui_MainWindow()
+        self.ui3 = GuiMainWindow()
         self.Log_in_success = QtWidgets.QWidget()
         self.log_in_failed = QtWidgets.QWidget()
         self.MainWindow = QtWidgets.QMainWindow()
@@ -254,7 +256,7 @@ class UiRegisterWindow(ConnectDB):
     # Method to show the main window of PandasDataFrame project
     def show_main_window(self):
         self.MainWindow = QtWidgets.QMainWindow()
-        self.ui3 = Ui_MainWindow()
+        self.ui3 = GuiMainWindow()
         self.ui3.setupUi(self.MainWindow)
         self.MainWindow.show()
 

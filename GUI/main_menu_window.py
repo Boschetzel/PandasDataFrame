@@ -58,7 +58,7 @@ from selenium.webdriver.support import expected_conditions as EC
     """
 
 
-class Ui_MainWindow:
+class GuiMainWindow:
     def __init__(self):
 
         self.df = None
@@ -911,7 +911,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = GuiMainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
