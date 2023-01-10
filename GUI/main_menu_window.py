@@ -106,6 +106,8 @@ class GuiMainWindow:
         self.menuData_Analysis.setObjectName("menuData_Analysis")
         self.menuVisualize_data = QtWidgets.QMenu(self.menubar)
         self.menuVisualize_data.setObjectName("menuVisualize_data")
+        self.menuScikitLearn = QtWidgets.QMenu(self.menubar)
+        self.menuScikitLearn.setObjectName("menuScikitLearn")
         MainWindow1.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow1)
         self.statusbar.setObjectName("statusbar")
@@ -176,9 +178,15 @@ class GuiMainWindow:
         self.actionMatPlotLib = QtWidgets.QAction(MainWindow1)
         self.actionMatPlotLib.setObjectName("actionMatPlotLib")
 
-        # Bokek graphs
+        # Bokeh graphs
         self.actionBokeh = QtWidgets.QAction(MainWindow1)
         self.actionBokeh.setObjectName("actionBokeh")
+
+        # ScikitLearn
+        self.actionScikitLearn = QtWidgets.QAction(MainWindow1)
+        self.actionScikitLearn.setObjectName("actionScikitLearn")
+
+
 
         # MENU ACTIONS
         self.menuFile.addAction(self.actionOpen)
@@ -196,11 +204,13 @@ class GuiMainWindow:
         self.menuData_Analysis.addAction(self.actionReplace_all_values_in_row)
         self.menuVisualize_data.addAction(self.actionMatPlotLib)
         self.menuVisualize_data.addAction(self.actionBokeh)
+        self.menuScikitLearn.addAction(self.actionScikitLearn)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuDataFrame.menuAction())
         self.menubar.addAction(self.menuData_Analysis.menuAction())
         self.menubar.addAction(self.menuVisualize_data.menuAction())
         self.menubar.addAction(self.menuWeatherApp.menuAction())
+        self.menubar.addAction(self.menuScikitLearn.menuAction())
 
         # MENU TRIGGERS
         self.actionOpen.triggered.connect(lambda: self.open_df())
@@ -910,7 +920,7 @@ class GuiMainWindow:
         model_acc = accuracy_score(y_test, predictions)
 
         # 9 Save the model with pickle
-        pickle.dump(open(model,"model_01.pkl","wb"))
+        pickle.dump(model(open, "model_01.pkl", "wb"))
 
 
 
@@ -926,7 +936,7 @@ class GuiMainWindow:
         _translate = QtCore.QCoreApplication.translate
         MainWindow1.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
-        self.label.setText(_translate("MainWindow", "Welcome to my Pandas Dataframe Project - By Boschetzel"))
+        self.label.setText(_translate("MainWindow", "Welcome to my Pandas Dataframe Project @BogdanMFometescu"))
         self.label.adjustSize()
 
         self.menuFile.setTitle(_translate("MainWindow", "File"))
@@ -938,6 +948,8 @@ class GuiMainWindow:
         self.menuData_Analysis.setTitle(_translate("MainWindow", "Data Analysis"))
 
         self.menuVisualize_data.setTitle(_translate("MainWindow", "Visualize data"))
+
+        self.menuScikitLearn.setTitle(_translate("MainWindow", "ScikitLearn"))
 
         self.actionOpen.setText(_translate("MainWindow", "Open CSV file"))
 
@@ -972,6 +984,8 @@ class GuiMainWindow:
         self.actionMatPlotLib.setText(_translate("MainWindow", "MatPlotLib"))
 
         self.actionBokeh.setText(_translate("MainWindow", "Bokeh"))
+
+        self.actionScikitLearn.setText(_translate("MainWindow", "SupervisedLearning"))
 
 
 if __name__ == "__main__":
