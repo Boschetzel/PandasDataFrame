@@ -26,6 +26,7 @@ from GUI.plot_bokeh import Ui_graph_bokeh
 from GUI.weather import Ui_weather_info_selenium
 
 from df_model import PandasModel
+
 import matplotlib.pyplot as plt
 from bokeh.plotting import figure
 from bokeh.io import show, output_file
@@ -34,6 +35,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+
+from sklearn.ensemble import RandomForestRegressor,RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import pickle
 
 """This Class contains all the functionalities of the PandasDataFrame Project:
 # FILE MENU :
@@ -853,6 +860,67 @@ class GuiMainWindow:
             # Save the results into a *.csv file
             new_df.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
             return new_df
+
+    # WORKFLOW FOR SCIKIT LEARN - SUPERVISED LEARNING
+
+    def make_predictions(self):
+        # 1 Get data and clean it (remove NaN, make numeric columns ...)
+
+        # Fill NaN values with a user choice number
+        value_for_nan = ""  # to get from GUI
+        self.df.fillna(value_for_nan)
+
+        # Drop "String" column by user choice
+        col_to_dop = "" # to get from GUI
+        self.df.drop(col_to_dop, axis=1)
+
+        # Replace "," with an empty string in all DataFrame
+        self.df.replace(",", "", regex=True).astype(float)
+
+        # Convert "float" values to "int"
+        self.df.astype(int)
+
+        # 2 Set training data (X) - features
+        features_col = ""
+        X = self.df.drop(features_col, axis=1)
+
+        # 3 Set test data (x) - label
+        label_col = ""
+        y = self.df[label_col]
+
+        # 4 Select the right model  for the problem (classification, Regression, etc)
+        model = RandomForestRegressor()
+
+        # 5 Fit the data to the model and predict results
+        test_size_value = ""
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size_value)
+        model.fit(X_train, y_train)
+
+        # 6 Predict
+        predictions = model.predict(X_test)
+
+        # 7 Save prediction to *csv
+        csv_filename = ""
+        df_pred = pd.DataFrame(predictions)
+        df_pred.to_csv(f"{csv_filename}.csv")
+
+        # 8 Evaluate the model (train data, test data) with metrics (accuracy_score, score)
+        model_score = model.score(X_test, y_test)
+        model_acc = accuracy_score(y_test, predictions)
+
+        # 9 Save the model with pickle
+        pickle.dump(open(model,"model_01.pkl","wb"))
+
+
+
+
+
+
+
+
+
+
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
