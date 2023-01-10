@@ -920,13 +920,7 @@ class GuiMainWindow:
         model_acc = accuracy_score(y_test, predictions)
 
         # 9 Save the model with pickle
-        pickle.dump(model(open, "model_01.pkl", "wb"))
-
-
-
-
-
-
+        pickle.dump(model, open("model_1.pkl", "wb"))
 
 
 
