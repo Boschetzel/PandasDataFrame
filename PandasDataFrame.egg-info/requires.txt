@@ -3,3 +3,5 @@ bokeh
 requests
 matplotlib
 pyqt5
+pandas
+scikit-learn

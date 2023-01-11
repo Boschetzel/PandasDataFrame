@@ -24,6 +24,7 @@ from GUI.add_new_row import Ui_df_add_new_rows
 from GUI.plot_mat import Ui_graph_matplotlib
 from GUI.plot_bokeh import Ui_graph_bokeh
 from GUI.weather import Ui_weather_info_selenium
+from GUI.ml_supevised_gui import Ui_ml_operations
 
 from df_model import PandasModel
 
@@ -36,8 +37,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
-from sklearn.ensemble import RandomForestRegressor,RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import pickle
@@ -186,8 +186,6 @@ class GuiMainWindow:
         self.actionScikitLearn = QtWidgets.QAction(MainWindow1)
         self.actionScikitLearn.setObjectName("actionScikitLearn")
 
-
-
         # MENU ACTIONS
         self.menuFile.addAction(self.actionOpen)
         self.menuDataFrame.addAction(self.actionShow_Data_Head)
@@ -228,6 +226,7 @@ class GuiMainWindow:
         self.actionMatPlotLib.triggered.connect(self.show_matplot_window)
         self.actionBokeh.triggered.connect(self.show_bokeh_plot_window)
         self.actionSearch_Weather_Info.triggered.connect(self.show_weather_info_window)
+        self.actionScikitLearn.triggered.connect(self.show_scikit)
 
         self.retranslateUi(MainWindow1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow1)
@@ -873,58 +872,92 @@ class GuiMainWindow:
 
     # WORKFLOW FOR SCIKIT LEARN - SUPERVISED LEARNING
 
+    def show_scikit(self):
+        self.ml_operations = QtWidgets.QDialog()
+        self.ui_ml_op = Ui_ml_operations()
+        self.ui_ml_op.setupUi(self.ml_operations)
+        self.ml_operations.show()
+        self.ui_ml_op.predict_btn.clicked.connect(self.make_predictions)
+
     def make_predictions(self):
         # 1 Get data and clean it (remove NaN, make numeric columns ...)
 
         # Fill NaN values with a user choice number
-        value_for_nan = ""  # to get from GUI
+        value_for_nan = self.ui_ml_op.ui_nan_values.text()
         self.df.fillna(value_for_nan)
+        print(value_for_nan)
+        print(self.df)
 
         # Drop "String" column by user choice
-        col_to_dop = "" # to get from GUI
-        self.df.drop(col_to_dop, axis=1)
+        col_to_dop = self.ui_ml_op.ui_drop_col.text()
+        if col_to_dop =="":
+            pass
+        else:
+            self.df.drop(col_to_dop, axis=1)
+            print(f"Column {col_to_dop} dropped")
 
         # Replace "," with an empty string in all DataFrame
-        self.df.replace(",", "", regex=True).astype(float)
+        if self.ui_ml_op.checkBox_2.isChecked():
+            self.df.replace(",", "", regex=True).astype(float)
+            print("Replaced commas")
+        else:
+            print("wrong")
 
         # Convert "float" values to "int"
-        self.df.astype(int)
+        if self.ui_ml_op.checkBox_4.isChecked():
+            self.df.astype(int)
+            print("Values converted to int")
+        else:
+            print("wrongdd")
 
         # 2 Set training data (X) - features
-        features_col = ""
+        features_col = self.ui_ml_op.ui_features_col.text()
         X = self.df.drop(features_col, axis=1)
+        print("Training data set - X")
 
         # 3 Set test data (x) - label
-        label_col = ""
+        label_col = self.ui_ml_op.ui_label_col.text()
         y = self.df[label_col]
+        print("Test data set ")
 
         # 4 Select the right model  for the problem (classification, Regression, etc)
-        model = RandomForestRegressor()
+        if self.ui_ml_op.random_clasifier_chk_box.isChecked():
+            model = RandomForestClassifier(n_estimators=30)
+
+        if self.ui_ml_op.random_regr_chk_box.isChecked():
+            model = RandomForestRegressor()
 
         # 5 Fit the data to the model and predict results
-        test_size_value = ""
+        test_size_value = self.ui_ml_op.ui_test_size.text()
+        test_size_value_float = float(test_size_value)
+        print(test_size_value_float)
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size_value)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size_value_float)
         model.fit(X_train, y_train)
+        print("Data fit to model")
 
         # 6 Predict
         predictions = model.predict(X_test)
 
         # 7 Save prediction to *csv
-        csv_filename = ""
+        csv_filename = self.ui_ml_op.ui_csv_filename.text()
         df_pred = pd.DataFrame(predictions)
         df_pred.to_csv(f"{csv_filename}.csv")
+        print("Predictions saved to csv")
 
         # 8 Evaluate the model (train data, test data) with metrics (accuracy_score, score)
         model_score = model.score(X_test, y_test)
         model_acc = accuracy_score(y_test, predictions)
+        self.ui_ml_op.score_lbl.setText(f"The model score is {model_score}")
+        self.ui_ml_op.accuracy_lbl.setText(f"The model accuracy is  is {model_acc}")
 
         # 9 Save the model with pickle
-        pickle.dump(model, open("model_1.pkl", "wb"))
+        pickle.dump(model, open("D:\PROGRAMARE\PORTOFOLIO\PandasDataFrame\output_data\model_1.pkl", "wb"))
+        print("Model saved with pickle")
 
-
-
-
+        pd_model = PandasModel(df_pred)
+        self.main_window_tableView.setModel(pd_model)
+        print("Reached here")
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate

@@ -26,6 +26,7 @@ from GUI.plot_bokeh import Ui_graph_bokeh
 from GUI.weather import Ui_weather_info_selenium
 
 from df_model import PandasModel
+
 import matplotlib.pyplot as plt
 from bokeh.plotting import figure
 from bokeh.io import show, output_file
@@ -34,6 +35,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+
+from sklearn.ensemble import RandomForestRegressor,RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import pickle
 
 """This Class contains all the functionalities of the PandasDataFrame Project:
 # FILE MENU :
@@ -58,7 +65,7 @@ from selenium.webdriver.support import expected_conditions as EC
     """
 
 
-class Ui_MainWindow:
+class GuiMainWindow:
     def __init__(self):
 
         self.df = None
@@ -99,6 +106,8 @@ class Ui_MainWindow:
         self.menuData_Analysis.setObjectName("menuData_Analysis")
         self.menuVisualize_data = QtWidgets.QMenu(self.menubar)
         self.menuVisualize_data.setObjectName("menuVisualize_data")
+        self.menuScikitLearn = QtWidgets.QMenu(self.menubar)
+        self.menuScikitLearn.setObjectName("menuScikitLearn")
         MainWindow1.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow1)
         self.statusbar.setObjectName("statusbar")
@@ -169,9 +178,15 @@ class Ui_MainWindow:
         self.actionMatPlotLib = QtWidgets.QAction(MainWindow1)
         self.actionMatPlotLib.setObjectName("actionMatPlotLib")
 
-        # Bokek graphs
+        # Bokeh graphs
         self.actionBokeh = QtWidgets.QAction(MainWindow1)
         self.actionBokeh.setObjectName("actionBokeh")
+
+        # ScikitLearn
+        self.actionScikitLearn = QtWidgets.QAction(MainWindow1)
+        self.actionScikitLearn.setObjectName("actionScikitLearn")
+
+
 
         # MENU ACTIONS
         self.menuFile.addAction(self.actionOpen)
@@ -189,11 +204,13 @@ class Ui_MainWindow:
         self.menuData_Analysis.addAction(self.actionReplace_all_values_in_row)
         self.menuVisualize_data.addAction(self.actionMatPlotLib)
         self.menuVisualize_data.addAction(self.actionBokeh)
+        self.menuScikitLearn.addAction(self.actionScikitLearn)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuDataFrame.menuAction())
         self.menubar.addAction(self.menuData_Analysis.menuAction())
         self.menubar.addAction(self.menuVisualize_data.menuAction())
         self.menubar.addAction(self.menuWeatherApp.menuAction())
+        self.menubar.addAction(self.menuScikitLearn.menuAction())
 
         # MENU TRIGGERS
         self.actionOpen.triggered.connect(lambda: self.open_df())
@@ -242,12 +259,12 @@ class Ui_MainWindow:
     def open_df(self):
         self.main_window_tableView.setModel(self.pandas_model())
 
-    # Cleans the df from nan values (can be used by devs for further developement of this project)
+    # Cleans the df from nan values (can be used by devs for further development of this project)
     def clean_nan_values(self):
         self.df.fillna(0)
         return self.df
 
-    # Saves the df from the weather info into a *.csv file, I know is harcoded:)
+    # Saves the df from the weather info into a *.csv file, I know is hardcoded:)
     def save_df(self):
         df_to_save = pd.DataFrame(self.df)
         df_to_save.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
@@ -854,11 +871,66 @@ class Ui_MainWindow:
             new_df.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
             return new_df
 
+    # WORKFLOW FOR SCIKIT LEARN - SUPERVISED LEARNING
+
+    def make_predictions(self):
+        # 1 Get data and clean it (remove NaN, make numeric columns ...)
+
+        # Fill NaN values with a user choice number
+        value_for_nan = ""  # to get from GUI
+        self.df.fillna(value_for_nan)
+
+        # Drop "String" column by user choice
+        col_to_dop = "" # to get from GUI
+        self.df.drop(col_to_dop, axis=1)
+
+        # Replace "," with an empty string in all DataFrame
+        self.df.replace(",", "", regex=True).astype(float)
+
+        # Convert "float" values to "int"
+        self.df.astype(int)
+
+        # 2 Set training data (X) - features
+        features_col = ""
+        X = self.df.drop(features_col, axis=1)
+
+        # 3 Set test data (x) - label
+        label_col = ""
+        y = self.df[label_col]
+
+        # 4 Select the right model  for the problem (classification, Regression, etc)
+        model = RandomForestRegressor()
+
+        # 5 Fit the data to the model and predict results
+        test_size_value = ""
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size_value)
+        model.fit(X_train, y_train)
+
+        # 6 Predict
+        predictions = model.predict(X_test)
+
+        # 7 Save prediction to *csv
+        csv_filename = ""
+        df_pred = pd.DataFrame(predictions)
+        df_pred.to_csv(f"{csv_filename}.csv")
+
+        # 8 Evaluate the model (train data, test data) with metrics (accuracy_score, score)
+        model_score = model.score(X_test, y_test)
+        model_acc = accuracy_score(y_test, predictions)
+
+        # 9 Save the model with pickle
+        pickle.dump(model, open("model_1.pkl", "wb"))
+
+
+
+
+
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
         MainWindow1.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
-        self.label.setText(_translate("MainWindow", "Welcome to my Pandas Dataframe Project - By Boschetzel"))
+        self.label.setText(_translate("MainWindow", "Welcome to my Pandas Dataframe Project @BogdanMFometescu"))
         self.label.adjustSize()
 
         self.menuFile.setTitle(_translate("MainWindow", "File"))
@@ -870,6 +942,8 @@ class Ui_MainWindow:
         self.menuData_Analysis.setTitle(_translate("MainWindow", "Data Analysis"))
 
         self.menuVisualize_data.setTitle(_translate("MainWindow", "Visualize data"))
+
+        self.menuScikitLearn.setTitle(_translate("MainWindow", "ScikitLearn"))
 
         self.actionOpen.setText(_translate("MainWindow", "Open CSV file"))
 
@@ -905,13 +979,15 @@ class Ui_MainWindow:
 
         self.actionBokeh.setText(_translate("MainWindow", "Bokeh"))
 
+        self.actionScikitLearn.setText(_translate("MainWindow", "SupervisedLearning"))
+
 
 if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = GuiMainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

@@ -16,6 +16,7 @@ GUI/login_failed.py
 GUI/login_succes.py
 GUI/login_window.py
 GUI/main_menu_window.py
+GUI/ml_supevised_gui.py
 GUI/plot_bokeh.py
 GUI/plot_mat.py
 GUI/register_user.py
