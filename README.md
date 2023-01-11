@@ -17,11 +17,14 @@ My goal was to put in practice the new things I learned, by coding.
 
 Project is also **published on Pypi** under the name of : PandasDataFrame
 
-NB: **the ML part  is not yet finished** as **I still am on a learning path with Python**.
-Quick note: weather info option works only for Romania cities.
+NB: **the ML part  is partially implemented ** as **I still am on a learning path with Python**.
+Quick note: weather info option works only for Romanian cities.
 
 ## Demo
-
+![img.png](images/Login.PNG)
+![img.png](images/MainWindow.PNG)
+![img.png](images/TableView.PNG)
+![img.png](images/SupervisedL.PNG)
 ![img.png](img.png)
 
 
@@ -32,6 +35,7 @@ Quick note: weather info option works only for Romania cities.
 - **Perform** different actions on the DataFrame
 - **Analyze** the data
 - **Visualize** data (plotting)
+- **Scikit-learn** (supervised learning algo)
 
 
 ```python
@@ -39,9 +43,11 @@ Quick note: weather info option works only for Romania cities.
 
 ```
 
-PandasDataFrame comes with **2 sample datasets** :
+PandasDataFrame comes with **3 sample datasets** :
 - Covid DataSet
 - FIFA Dataset
+- Diabetes DataSet
+
 
 
 ## Features
@@ -62,11 +68,12 @@ PandasDataFrame comes with **2 sample datasets** :
   - Matplotlib 
   - Bokeh
 - Get data (*.csv) using Selenium
+- Scikit-learn (Supervised learning with 2 algo)
 
 ## More Info
 
 **Issues, feedback and pull requests are welcome.**
 
-This project is still in version 1.0.3 and subject to further changes.
+This project is still in version 1.0.5 and subject to further changes.
 
 If you like this project remember to leave a ⭐! 

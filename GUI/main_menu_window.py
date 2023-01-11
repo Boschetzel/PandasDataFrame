@@ -890,7 +890,7 @@ class GuiMainWindow:
 
         # Drop "String" column by user choice
         col_to_dop = self.ui_ml_op.ui_drop_col.text()
-        if col_to_dop =="":
+        if col_to_dop == "":
             pass
         else:
             self.df.drop(col_to_dop, axis=1)
@@ -901,24 +901,24 @@ class GuiMainWindow:
             self.df.replace(",", "", regex=True).astype(float)
             print("Replaced commas")
         else:
-            print("wrong")
+            print("Something went wrong replacing commas")
 
         # Convert "float" values to "int"
         if self.ui_ml_op.checkBox_4.isChecked():
             self.df.astype(int)
             print("Values converted to int")
         else:
-            print("wrongdd")
+            print("Something went from converting float to int")
 
         # 2 Set training data (X) - features
         features_col = self.ui_ml_op.ui_features_col.text()
         X = self.df.drop(features_col, axis=1)
-        print("Training data set - X")
+        print("Set the training data  - X")
 
         # 3 Set test data (x) - label
         label_col = self.ui_ml_op.ui_label_col.text()
         y = self.df[label_col]
-        print("Test data set ")
+        print("Set the test data - y")
 
         # 4 Select the right model  for the problem (classification, Regression, etc)
         if self.ui_ml_op.random_clasifier_chk_box.isChecked():
@@ -957,7 +957,7 @@ class GuiMainWindow:
 
         pd_model = PandasModel(df_pred)
         self.main_window_tableView.setModel(pd_model)
-        print("Reached here")
+        print("Reached here....done")
 
     def retranslateUi(self, MainWindow1):
         _translate = QtCore.QCoreApplication.translate
