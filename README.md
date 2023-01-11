@@ -21,11 +21,13 @@ NB: **the ML part  is partially implemented ** as **I still am on a learning pat
 Quick note: weather info option works only for Romanian cities.
 
 ## Demo
+![img.png](images/ProjectBrakedown.PNG)
 ![img.png](images/Login.PNG)
 ![img.png](images/MainWindow.PNG)
 ![img.png](images/TableView.PNG)
 ![img.png](images/SupervisedL.PNG)
-![img.png](img.png)
+
+
 
 
 

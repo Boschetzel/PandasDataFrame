@@ -24,7 +24,7 @@ from GUI.add_new_row import Ui_df_add_new_rows
 from GUI.plot_mat import Ui_graph_matplotlib
 from GUI.plot_bokeh import Ui_graph_bokeh
 from GUI.weather import Ui_weather_info_selenium
-from GUI.ml_supevised_gui import Ui_ml_operations
+from GUI.ml_supevised import Ui_ml_operations
 
 from df_model import PandasModel
 
@@ -870,7 +870,8 @@ class GuiMainWindow:
             new_df.to_csv("D:\\PROGRAMARE\\PORTOFOLIO\\PandasDataFrame\\output_data\\sample.csv")
             return new_df
 
-    # WORKFLOW FOR SCIKIT LEARN - SUPERVISED LEARNING
+    # WORKFLOW FOR SCIKIT LEARN
+    # SUPERVISED LEARNING
 
     def show_scikit(self):
         self.ml_operations = QtWidgets.QDialog()
